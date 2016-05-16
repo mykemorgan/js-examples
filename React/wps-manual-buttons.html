@@ -1,0 +1,191 @@
+<html>
+  <head>
+    <title>WPS Buttons</title>
+    <link rel="stylesheet" type="text/css" href="WPS-sample-url.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  </head>
+  <body>
+    <h1>WPS Buttons</h1>
+    <br>
+
+    <table class="emptyparam">
+      <thead class="emptyparam">
+        <tr>
+          <td class="tableheader">WPS Button</td>
+          <td class="tableheader">Details</td>
+          <td class="tableheader">Description</td>
+        </tr>
+      </thead>
+      
+      <tbody class="emptyparam">
+        <tr>
+          <td class="tablebody">
+            <form class="wps" action="http://localhost.qa.paypal.com:8000/cgi-bin/webscr" method="post" target="_blank">
+              <input value="_xclick" name="cmd" type="hidden" />
+              <input value="shift_jis" name="charset" type="hidden"/>
+              <input value="ラージダイヤモンドリング" name="item_name" type="hidden" />
+              <input value="342" name="item_number" type="hidden" />
+              <input value="qa155-seller@paypal.com" name="business" type="hidden" />
+              <input value="25.00" name="amount" type="hidden" />
+              <input value="USD" name="currency_code" type="hidden" />
+              <input class="wpssubmit" value="LOCALHOST" type="submit" />
+            </form>
+          </td>
+          <td class="tablebody">
+            localhost request with shift_jis
+          </td>
+          <td class="tablebody">
+            Item "ラージダイヤモンドリング" should show up properly decoded
+          </td>
+        </tr>
+
+        <tr>
+          <td class="tablebody">
+            <form class="wps" action="http://localhost.qa.paypal.com:8000/cgi-bin/webscr" method="post" target="_blank">
+              <input value="_xclick" name="cmd" type="hidden" />
+              <input value="shift_jis" name="charset" type="hidden"/>
+              <input value="%83%89%81%5B%83W%83_%83C%83%84%83%82%83%93%83h%83%8A%83%93%83O" name="item_name" type="hidden" />
+              <input value="342" name="item_number" type="hidden" />
+              <input value="qa155-seller@paypal.com" name="business" type="hidden" />
+              <input value="25.00" name="amount" type="hidden" />
+              <input value="USD" name="currency_code" type="hidden" />
+              <input class="wpssubmit" value="LOCALHOST" type="submit" />
+            </form>
+          </td>
+          <td class="tablebody">
+            localhost pre-encoded with shift_jis
+          </td>
+          <td class="tablebody">
+            Item "ラージダイヤモンドリング" should show up properly decoded
+          </td>
+        </tr>
+
+        <tr>
+          <td class="tablebody">
+            <form class="wps"  action="https://www.xorouternodeweb59329.qa.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+              <input value="_xclick" name="cmd" type="hidden" />
+              <input value="shift_jis" name="charset" type="hidden"/>
+              <input value="ラージダイヤモンドリング" name="item_name" type="hidden" />
+              <input value="342" name="item_number" type="hidden" />
+              <input value="qa155-seller@paypal.com" name="business" type="hidden" />
+              <input value="25.00" name="amount" type="hidden" />
+              <input value="USD" name="currency_code" type="hidden" />
+              <input class="wpssubmit" value="xorouternodeweb59329" type="submit" />
+            </form>
+          </td>
+          <td class="tablebody">
+            xorouternodeweb59329 request <strong class="withamount">through webscr</strong> with shift_jis
+          </td>
+          <td class="tablebody">
+            Item "ラージダイヤモンドリング" should show up properly decoded
+          </td>
+        </tr>
+
+        <tr>
+          <td class="tablebody">
+            <form class="wps"  action="https://www.xorouternodeweb59329.qa.paypal.com/webapps/xorouter" method="post" target="_blank">
+              <input value="_xclick" name="cmd" type="hidden" />
+              <input value="shift_jis" name="charset" type="hidden"/>
+              <input value="ラージダイヤモンドリング" name="item_name" type="hidden" />
+              <input value="342" name="item_number" type="hidden" />
+              <input value="qa155-seller@paypal.com" name="business" type="hidden" />
+              <input value="25.00" name="amount" type="hidden" />
+              <input value="USD" name="currency_code" type="hidden" />
+              <input class="wpssubmit" value="xorouternodeweb59329" type="submit" />
+            </form>
+          </td>
+          <td class="tablebody">
+            xorouternodeweb59329 <strong class="withamount">direct request</strong> with shift_jis
+          </td>
+          <td class="tablebody">
+            Item "ラージダイヤモンドリング" should show up properly decoded
+          </td>
+        </tr>
+
+        <tr>
+          <td class="tablebody">
+            <form class="wps"  action="https://www.xorouternodeweb59329.qa.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+              <input value="_xclick" name="cmd" type="hidden" />
+              <input value="shift_jis" name="charset" type="hidden"/>
+              <input value="%83%89%81%5B%83W%83_%83C%83%84%83%82%83%93%83h%83%8A%83%93%83O" name="item_name" type="hidden" />
+              <input value="342" name="item_number" type="hidden" />
+              <input value="qa155-seller@paypal.com" name="business" type="hidden" />
+              <input value="25.00" name="amount" type="hidden" />
+              <input value="USD" name="currency_code" type="hidden" />
+              <input class="wpssubmit" value="xorouternodeweb59329" type="submit" />
+            </form>
+          </td>
+          <td class="tablebody">
+            xorouternodeweb59329 pre-encoded request <strong class="withamount">through webscr</strong> with shift_jis
+          </td>
+          <td class="tablebody">
+            Item "ラージダイヤモンドリング" should show up properly decoded
+          </td>
+        </tr>
+
+        <tr>
+          <td class="tablebody">
+            <form class="wps"  action="https://www.xorouternodeweb59329.qa.paypal.com/webapps/xorouter" method="post" target="_blank">
+              <input value="_xclick" name="cmd" type="hidden" />
+              <input value="shift_jis" name="charset" type="hidden"/>
+              <input value="%83%89%81%5B%83W%83_%83C%83%84%83%82%83%93%83h%83%8A%83%93%83O" name="item_name" type="hidden" />
+              <input value="342" name="item_number" type="hidden" />
+              <input value="qa155-seller@paypal.com" name="business" type="hidden" />
+              <input value="25.00" name="amount" type="hidden" />
+              <input value="USD" name="currency_code" type="hidden" />
+              <input class="wpssubmit" value="xorouternodeweb59329" type="submit" />
+            </form>
+          </td>
+          <td class="tablebody">
+            xorouternodeweb59329 pre-encoded <strong class="withamount">direct request</strong> with shift_jis
+          </td>
+          <td class="tablebody">
+            Item "ラージダイヤモンドリング" should show up properly decoded
+          </td>
+        </tr>
+
+        <tr>
+          <td class="tablebody">
+            <form class="wps"  action="https://www.msmaster.qa.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+              <input value="_xclick" name="cmd" type="hidden" />
+              <input value="shift_jis" name="charset" type="hidden"/>
+              <input value="ラージダイヤモンドリング" name="item_name" type="hidden" />
+              <input value="342" name="item_number" type="hidden" />
+              <input value="qa155-seller@paypal.com" name="business" type="hidden" />
+              <input value="25.00" name="amount" type="hidden" />
+              <input value="USD" name="currency_code" type="hidden" />
+              <input class="wpssubmit" value="msmaster" type="submit" />
+            </form>
+          </td>
+          <td class="tablebody">
+            msmaster request with shift_jis
+          </td>
+          <td class="tablebody">
+            Item "ラージダイヤモンドリング" should show up properly decoded
+          </td>
+        </tr>
+
+        <tr>
+          <td class="tablebody">
+            <form class="wps"  action="https://www.msmaster.qa.paypal.com/cgi-bin/webscr" method="post" target="_blank">
+              <input value="_xclick" name="cmd" type="hidden" />
+              <input value="shift_jis" name="charset" type="hidden"/>
+              <input value="%83%89%81%5B%83W%83_%83C%83%84%83%82%83%93%83h%83%8A%83%93%83O" name="item_name" type="hidden" />
+              <input value="342" name="item_number" type="hidden" />
+              <input value="qa155-seller@paypal.com" name="business" type="hidden" />
+              <input value="25.00" name="amount" type="hidden" />
+              <input value="USD" name="currency_code" type="hidden" />
+              <input class="wpssubmit" value="msmaster" type="submit" />
+            </form>
+          </td>
+          <td class="tablebody">
+            msmaster pre-encoded request with shift_jis
+          </td>
+          <td class="tablebody">
+            Item "ラージダイヤモンドリング" should show up properly decoded
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

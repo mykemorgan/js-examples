@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!--
+Step 3&4 exercises: Basic React framework to display text area and button.
+  -->
+<html>
+  <head>
+	<meta charset="utf-8">
+	<title>React Enable The Button</title>
+	<script src="https://unpkg.com/react@latest/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+	<div id="container"></div>
+
+	<!-- Babel only wants to compile files fetched with http:// not file:// so without a server, need script inline -->
+	<script type="text/babel">
+	   var TweetBox = React.createClass({
+		   render: function () {
+			   return (
+	   <div className="well clearfix">
+		 <textarea className="form-control"></textarea>
+		 <br/>
+		 <button className="btn btn-primary pull-right">Tweet</button>
+	   </div>
+			   );
+		   }
+	   });
+
+	   ReactDOM.render(
+		   <TweetBox />,
+		   document.getElementById("container")
+	   );
+	</script>
+  </body>
+</html>

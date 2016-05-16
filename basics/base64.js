@@ -4,7 +4,7 @@
 // unpack/display that in a more pretty was as well.
 'use strict';
 
-// ES6 modules and 'import' not supported yet in node...
+// TODO get ES6 modules and 'import' to work with new node vesion
 // import { parse } from 'qs';
 let qs = require('qs');
 
@@ -46,9 +46,14 @@ function attempt_pretty_display(decoded) {
 }
 
 function do_decoding(index, data) {
-    let decoded = decodeURIComponent(base64_decode(data));
-    console.log(`[32mDecoding Arg${index-1}[0m: [${decoded}]`);
-    attempt_pretty_display(decoded);
+    try {
+        let decoded = decodeURIComponent(base64_decode(data));
+        console.log(`[32mDecoding Arg${index-1}[0m: [${decoded}]`);
+        attempt_pretty_display(decoded);
+    } catch (err) {
+        console.log(`Looks like something went wrong decoding: ${err.name} - ${err.message}`);
+        console.log(`Aborting...`);
+    }
 }
 
 let mode = get_program_mode(process.argv);

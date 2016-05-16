@@ -1,0 +1,122 @@
+<html>
+  <head>
+	<title>WPS Links</title>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+  <script src="../../jquery-3.1.1.js"></script>
+  <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+  <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    
+  </head>
+  <body>
+	<h1>WPS Links</h1>
+	<br>
+	<div id="wpslinks"></div>
+
+	  <script type="text/babel">
+    var WpsLinks = React.createClass({
+        getInitialState: function() {
+            return {
+                input: '',
+                stage: 'msmaster',
+                links: [
+                    {
+                        desc: 'Buy Now Item',
+                        query: 'cmd=_xclick&item_name=MykeItem&amount=2.22&business=qa155-seller@paypal.com'
+                    },
+                    {
+                        desc: 'Buy Now Item - Discount',
+                        query: 'cmd=_xclick&item_name=MykeItem&amount=2.22&business=qa155-seller@paypal.com&discount_amount=0.23'
+                    },
+                    {
+                        desc: 'Cart Upload Item - Two Items',
+                        query: 'cmd=_cart&upload=1&item_name_1=MykeItem_1&amount_1=1.11&quantity_1=2&tax_1=0.13&item_name_2=MykeItem_2&amount_2=2.22&quantity_2=3&tax_2=0.23&business=qa155-seller@paypal.com'
+                    },
+                    {
+                        desc: 'Open Button - Undefined Quantity',
+                        query: 'cmd=_xclick&item_name=MykeItem&amount=2.22&business=qa155-seller@paypal.com&undefined_quantity=1'
+                    },
+                    {
+                        desc: 'Open Button - No Amount',
+                        query: 'cmd=_xclick&item_name=MykeItem&business=qa155-seller@paypal.com&quantity=1'
+                    },
+                    {
+                        desc: 'Open Button - No Item Name',
+                        query: 'cmd=_xclick&amount=2.22&business=qa155-seller@paypal.com&quantity=2'
+                    }
+                ]
+            };
+        },
+        handleSetStage: function(event) {
+            console.log(`Handle Set Stage click. Changing to [${this.state.input}]`);
+            // XXX/mm do some sort of validation?
+            this.setState({ stage: this.state.input.toLowerCase() });
+        },
+        handleStageInput: function(event) {
+            // Set the value in state directly (no calling setState()) so no re-render happens.
+            // See further comments in wps-buttons.html
+            this.state.input = event.target.value;
+        },
+        buildStageUrl: function(link, i) {
+            let url;
+            if (this.state.stage.toLowerCase() === 'localhost') {
+                url = `http://${this.state.stage}.qa.paypal.com:8000/cgi-bin/webscr?`;
+            } else if (this.state.stage.toLowerCase() === 'live') {
+                url = `https://www.paypal.com/cgi-bin/webscr?`;
+            } else if (this.state.stage.toLowerCase() === 'sandbox') {
+                url = `https://www.sandbox.paypal.com/cgi-bin/webscr?`;
+            } else {
+                url = `https://www.${this.state.stage}.qa.paypal.com/cgi-bin/webscr?`;
+            }
+            let query = link.query;
+            let desc = link.desc;
+            console.log(`Building link #${i} for "${desc}"`);
+            // Note every JSX object in an array or iterator of them must have a unique "key".
+            // So add that the top level tag here in case it ends up in an array (which it does).
+            return (
+                <div key={i}>
+                    <a target="wps" href={url + query}>WPS item - {desc}</a>
+                    <br/>
+                </div>
+            );
+        },
+        // Example: How to output an array, or bunch of things of unknow size at coding time?
+        // Create an array of JSX statements. Also could return an iterator of JSX statements.
+        buildAllUrls: function() {
+            let urls = this.state.links.map((link, idx) => {
+                return this.buildStageUrl(link, idx);
+            });
+            return (
+                    <div> {urls} </div>
+            );
+        },
+        render: function () {
+            return (
+                    <div className="well clearfix">
+                    <textarea className="form-control"
+                              onChange={this.handleStageInput}></textarea>
+                    <br/>
+                    <button className="btn btn-default pull-right"
+                            onClick={this.handleSetStage}>Set Stage</button>
+	                  <br/>
+                    Current Stage: <strong>{this.state.stage}</strong>
+	                  <br/>
+	                  <br/>
+	                  {this.buildAllUrls()}
+	                  </div>
+         );
+       }
+    });
+
+     ReactDOM.render(
+       <WpsLinks />,
+       document.getElementById("wpslinks")
+     );
+  </script>
+
+  </body>
+</html>

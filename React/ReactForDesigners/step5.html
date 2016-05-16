@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+Step 5 exercise: Basic callback for text area changes.
+  -->
+<html>
+  <head>
+	<meta charset="utf-8">
+	<title>React Enable The Button</title>
+	<script src="https://unpkg.com/react@latest/dist/react.js"></script>
+	<script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+	<div id="container"></div>
+
+	<!-- Babel only wants to compile files fetched with http:// not file:// so without a server, need script inline -->
+	<script type="text/babel">
+	  var TweetBox = React.createClass({
+	      handleChange: function(event) {
+            if (event.target.value.length > 0) {
+                console.log(`Enabling button for text: [${event.target.value}]`);
+            } else {
+                console.log(`Disabling button due to lack of text.`);
+            }
+	      },
+		    render: function () {
+			      return (
+	                  <div className="well clearfix">
+		                <textarea className="form-control"
+                              onChange={this.handleChange}></textarea>
+		                <br/>
+		                <button className="btn btn-primary pull-right" disabled>Tweet</button>
+	                  </div>
+			   );
+		   }
+	  });
+
+	   ReactDOM.render(
+		   <TweetBox />,
+		   document.getElementById("container")
+	   );
+	</script>
+  </body>
+</html>

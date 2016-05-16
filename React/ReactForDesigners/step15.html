@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--
+Step 6 exercise: State - React version of enabling the button only when text is present.
+  -->
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>React TweetBox</title>
+  <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+  <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+  <div id="container"></div>
+
+  <!-- Babel only wants to compile files fetched with http:// not file:// so without a server, need script inline -->
+  <script type="text/babel">
+    var TweetBox = React.createClass({
+        getInitialState: function() {
+            return {
+                text: '',
+                photo: false
+            };
+        },
+        handlePhoto: function(event) {
+            // console.log(`Handle Photo click. Changing to ${!this.state.photo}`);
+            this.setState({ photo: !this.state.photo });
+        },
+        handleChange: function(event) {
+            // if (event.target.value.length > 0) {
+            //     console.log(`Enabling button due to text length ${event.target.value.length}: [${event.target.value}]`);
+            // } else {
+            //     console.log(`No text present.`);
+            // }
+            this.setState({ text: event.target.value });
+        },
+        remainingCharacters: function() {
+            let base = 140;
+            if (this.state.photo) {
+                base -= 23;
+            }
+            return base - this.state.text.length;
+        },
+        // Display an alert if we ran out of characters.
+        overflowAlert: function() {
+            if (this.remainingCharacters() < 0) {
+                let maxChars = 140;
+                if(this.state.photo) {
+                    maxChars -= 23;
+                }
+                let lastValidChars = this.state.text.substring(maxChars-10, maxChars);
+                let overflowChars = this.state.text.substring(maxChars);
+                return (
+                        <div className="alert alert-warning">
+                        <strong>Oops! Too long:</strong>
+                        &nbsp;...{lastValidChars}
+                        <strong className="bg-danger">{overflowChars}</strong>
+                        </div>
+                );
+            }
+            return "";
+        },
+        // Note you can't just write raw <button disabled="false">, the "disabled" attribute
+        // must be present or not. But JSX magically changes disabled={true} to "disabled".
+        // Interesting quote from tutorial:
+        //   "This works with other boolean attributes like `checked`.
+        //    This is not officially documented as of writing, but it should be included soon."
+        // Not sure whether that means none are documented or only `disabled` is documented, or what?
+        render: function () {
+            return (
+                    <div className="well clearfix">
+                    {this.overflowAlert() }
+                    <textarea className="form-control"
+                              onChange={this.handleChange}></textarea>
+                    <br/>
+                    <span>{this.remainingCharacters()}</span>
+                    <button className="btn btn-primary pull-right"
+                            disabled={this.remainingCharacters() === 140}>Tweet</button>
+                    <button className="btn btn-default pull-right"
+                            onClick={this.handlePhoto}>{this.state.photo ?  "✓ Photo Added" : "Add Photo"}</button>
+                    </div>
+         );
+       }
+    });
+
+     ReactDOM.render(
+       <TweetBox />,
+       document.getElementById("container")
+     );
+  </script>
+  </body>
+</html>

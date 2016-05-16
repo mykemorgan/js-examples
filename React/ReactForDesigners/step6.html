@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+Step 6 exercise: State - React version of enabling the button only when text is present.
+  -->
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>React Enable The Button</title>
+  <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+  <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+  <div id="container"></div>
+
+  <!-- Babel only wants to compile files fetched with http:// not file:// so without a server, need script inline -->
+  <script type="text/babel">
+    var TweetBox = React.createClass({
+        getInitialState: function() {
+            return {
+                text: ''
+            };
+        },
+        handleChange: function(event) {
+            if (event.target.value.length > 0) {
+                console.log(`Enabling button due to text: [${event.target.value}]`);
+            } else {
+                console.log(`Disabling button due to lack of text.`);
+            }
+            this.setState({ text: event.target.value });
+        },
+
+        // Note you can't just write raw <button disabled="false">, the "disabled" attribute
+        // must be present or not. But JSX magically changes disabled={true} to "disabled".
+        // Interesting quote from tutorial:
+        //   "This works with other boolean attributes like `checked`.
+        //    This is not officially documented as of writing, but it should be included soon."
+        // Not sure whether that means none are documented or only `disabled` is documented, or what?
+        render: function () {
+            return (
+                    <div className="well clearfix">
+                    <textarea className="form-control"
+                              onChange={this.handleChange}></textarea>
+                    <br/>
+                    <button className="btn btn-primary pull-right"
+                            disabled={this.state.text.length === 0}>Tweet</button>
+                    </div>
+         );
+       }
+    });
+
+     ReactDOM.render(
+       <TweetBox />,
+       document.getElementById("container")
+     );
+  </script>
+  </body>
+</html>

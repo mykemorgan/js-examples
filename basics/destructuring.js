@@ -2,7 +2,9 @@
 
 // Destructuring assignment examples.
 //
-// XXX/mm This doesn't work with node v4.3.1
+// This doesn't work through node v5
+// Node ^6 seems to support ES6 stuff. Or, at least this part of it anyway. Use 6.9.5:
+// % nvm exec 6.9.5 node destructuring.js
 //
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
 
@@ -14,11 +16,11 @@ function test1() {
     console.log(foo); // "bar"
 }
 
-function test2() {
+function test2_1() {
     let o = {p: 42, q: true};
     let {p, q} = o;
 
-    console.log('test2() -----------------------------------------------------------');
+    console.log('test2_1() -----------------------------------------------------------');
     console.log(p); // 42
     console.log(q); // true 
 
@@ -27,6 +29,22 @@ function test2() {
 
     console.log(foo); // 42
     console.log(bar); // true
+
+}
+
+function test2_2() {
+    let o = [42, 13, 7];
+    let [p, q] = o;
+
+    console.log('test2_2() -----------------------------------------------------------');
+    console.log(p); // 42
+    console.log(q); // 13
+
+    // Assign new variable names
+    let [foo, , bar] = o;
+
+    console.log(foo); // 42
+    console.log(bar); // 7
 
 }
 
@@ -40,7 +58,7 @@ function test3() {
         url: 'http://www.myke.com'
     };
 
-    let {id: identifier, name: { first: first_name }, name: { last: last_name }} = person;
+    let {id: identifier, name: { first: first_name, last: last_name }} = person;
 
     console.log('test3() -----------------------------------------------------------');
     console.log(person);
@@ -88,6 +106,7 @@ function test4() {
 }
 
 test1();
-test2();
+test2_1();
+test2_2();
 test3();
 test4();

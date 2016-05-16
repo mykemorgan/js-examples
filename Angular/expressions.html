@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+  <body>
+
+    <!-- 
+         ng-init is not common. Controllers are better way to do data initialization
+         But in the meantime, this example is to init a JS object to be used later.
+      -->
+    <div ng-app="" ng-init="person={firstName:'Bilbo',lastName:'Baggins'};firstName='Frodo';lastName='Baggins'">
+
+      <p>The first name is {{ person.firstName }}</p>
+      <p>The last name is {{ person.lastName }}</p>
+
+      <p>The name is {{ firstName + " " + lastName }}</p>
+
+    </div>
+
+  </body>
+</html>

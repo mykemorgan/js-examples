@@ -1,7 +1,7 @@
 // From: https://github.com/DrkSephy/es6-cheatsheet
 //
-// Generators are similar to python generators?
-'use strict';
+// Generators are similar to python generators
+// 'use strict';
 
 var http = require('http');
 
