@@ -15,4 +15,8 @@ Install:
 
 Tip: Can use `nrm` to manage where npm points to.
 
-Also will eventually use: `webpack-worker-loader`
+Also will eventually use: webpack's `worker-loader` module: [https://github.com/webpack-contrib/worker-loader](webpack worker loader)
+
+This is to offload all the websocket work into a separate browser
+thread so that the main window thread is not the thing handling all
+the message request processing.
