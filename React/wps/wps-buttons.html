@@ -20,7 +20,7 @@
 
         <script type="text/babel">
          var WpsButtons = React.createClass({
-            getInitialState: function() {
+             getInitialState: function() {
                  return {
                      input: '',
                      stage: 'msmaster',
@@ -246,6 +246,29 @@
                                  zip: 'CM3 8AH'
                              }
                          },
+                         {
+                             button_name: 'Option Select but no name',
+                             button_details: 'Pricing selection without a name',
+                             button_description: 'Amount should be calculated when os0 but no on0 present',
+                             button_params: {
+                                 business: 'qa155-seller@paypal.com',
+                                 cmd: '_xclick',
+                                 item_name: 'Pricing option but no name',
+                                 os0: 'Large',
+                                 option_select0: 'Small',
+                                 option_amount0: '1.11',
+                                 option_select1: 'Medium',
+                                 option_amount1: '22.22',
+                                 option_select2: 'Large',
+                                 option_amount2: '333.33',
+                                 on1: 'Stone',
+                                 os1: 'Diamond',
+                                 on2: 'Metal',
+                                 os2: 'Platinum',
+                                 on3: 'Setting',
+                                 os3: 'Princess'
+                             }
+                         },
                      ]
                  };
              },
@@ -322,23 +345,23 @@
                  }
                  let name = button.button_name;
                  // Note every JSX object in an array or iterator of them must have a unique "key".
-                     // So add that the top level tag here in case it ends up in an array (which it does).
-                     return (
-                         <tr key={idx}>
-                             <td>
-                                 <form action={url} method="post" target="wps">
-                                     {this.buildFormInputs(button.button_params)}
-                                     <input value={name} type="submit" />
-                                 </form>
-                             </td>
-                             <td>
-                                 {button.button_details}
-                             </td>
-                             <td>
-                                 {button.button_description}
-                             </td>
-                         </tr>
-                     );
+                 // So add that the top level tag here in case it ends up in an array (which it does).
+                 return (
+                     <tr key={idx}>
+                         <td>
+                             <form action={url} method="post" target="wps">
+                                 {this.buildFormInputs(button.button_params)}
+                                 <input value={name} type="submit" />
+                             </form>
+                         </td>
+                         <td>
+                             {button.button_details}
+                         </td>
+                         <td>
+                             {button.button_description}
+                         </td>
+                     </tr>
+                 );
              },
 
              // Build the area displaying all the buttons and their descriptions.
