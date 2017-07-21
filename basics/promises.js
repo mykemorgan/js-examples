@@ -21,7 +21,7 @@ var promises3 = [
 // "Fail" being, not meeting 'criteria', or being rejected.
 // With reasonable default for "criteria".
 function didAllPromisesFail(collection, criteria) {
-    
+
     if (!criteria) {
         criteria = function(item) {
             return !item;
@@ -73,12 +73,12 @@ function delay(time) {
     });
 }
 
-const my_delay = 2000;
+const my_delay = 1500;
 
 console.log(`Starting delay example...`);
 delay(my_delay).then(() => {
     console.log(`${my_delay} ms passed`);
-    return "Hello world";
+    return "Hello world promise result";
 }).then((value) => {
     console.log(`beginning another ${my_delay} ms delay`);
     return delay(my_delay).then(() => {
@@ -86,14 +86,65 @@ delay(my_delay).then(() => {
         return value;
     });
 }).then(function(helloWorldString) {
-        console.log(helloWorldString);
+    console.log(helloWorldString);
 });
 
-// Bluebird promise code seems to be better at the above delay-chaining:
-// BB.delay(500).then(function() {
-//     console.log("500 ms passed");
-//     return "Hello world";
-// }).delay(500).then(function(helloWorldString) {
-//     console.log(helloWorldString);
-//     console.log("another 500 ms passed") ;
-// });
+// ----------------------------------------------------------------------
+// Another Promise.all() example of fast-failing
+// ----------------------------------------------------------------------
+console.log(`Starting fast-fail of Promise.all()`);
+
+var p1 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 1000, 'one seconds');
+});
+var p2 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 2000, 'two seconds');
+});
+var p3 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 3000, 'three seconds');
+});
+var p4 = new Promise((resolve, reject) => {
+    setTimeout(resolve, 4000, 'four seconds');
+});
+var p5 = new Promise((resolve, reject) => {
+    reject('Immediate reject promise');
+});
+
+// Can't decide if this is formatted nicer than below...
+Promise.all([p1, p2, p3, p4, p5])
+    .then(values => {
+        console.log(values);
+    }, rejectReason => {
+        console.log(rejectReason);
+    });
+
+// Can't decide if this is formatted nicer than above...
+Promise.all([p1, p2, p3, p4]).then(values => {
+    console.log(values);
+}, rejectReason => {
+    console.log(rejectReason);
+});
+
+// catch() is mostly equivalent to then with second argument.
+console.log(`Starting fast-fail of Promise.all() with catch()`);
+
+// Can't decide if this is formatted nicer than below...
+Promise.all([p1, p2, p3, p4, p5])
+    .then(values => {
+        console.log(values);
+    })
+    .catch(reason => {
+        console.log(reason);
+    });
+
+// Can't decide if this is formatted nicer than above...
+Promise.all([p1, p2, p3, p4]).then(values => {
+    console.log(values);
+}).catch(reason => {
+    console.log(reason);
+});
+
+
+// ----------------------------------------------------------------------
+// Need an example of what happens when sub-code throw()'s
+// ----------------------------------------------------------------------
