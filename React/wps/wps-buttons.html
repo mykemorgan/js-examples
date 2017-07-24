@@ -24,13 +24,13 @@
                  return {
                      input: '',
                      stage: 'msmaster',
+                     business: 'qa155-seller@paypal.com',
                      buttons: [
                          {
                              button_name: 'Buy Now Item',
                              button_details: 'Simple buy now item',
                              button_description: 'Minimal params and multiple amounts',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  item_name: 'Myke Item',
                                  amount: [ '1.11', '2.22', '3.33' ] // result should be the last value
@@ -41,7 +41,6 @@
                              button_details: 'Buy now item with locale',
                              button_description: 'fr_FR locale with simple button',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  lc: 'fr_FR',
                                  item_name: 'Myke fr_FR Item',
@@ -53,7 +52,6 @@
                              button_details: 'Buy now item with locale',
                              button_description: 'es_ES locale with simple button',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  lc: 'es_ES',
                                  item_name: 'Myke es_ES Item',
@@ -65,7 +63,6 @@
                              button_details: 'Buy now with discount amount',
                              button_description: 'Discount should be subtracted from total',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  item_name: 'Myke Discounted Item',
                                  amount: '10.00',
@@ -77,7 +74,6 @@
                              button_details: 'Three item cart',
                              button_description: 'Three items with item_numbers and ampersands',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_cart',
                                  upload: '1',
                                  item_name_1: 'Myke Item #1 & extras',
@@ -96,7 +92,6 @@
                              button_details: 'amount is missing',
                              button_description: 'User allowed to enter amount',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  item_name: 'Myke Pick Your Amount Item',
                              }
@@ -106,7 +101,6 @@
                              button_details: 'Two amount params, second is empty',
                              button_description: 'User allowed to enter amount (default set to first value)',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  item_name: 'Myke Pick Your Amount Item',
                                  amount: [ '10.00', '' ]
@@ -117,7 +111,6 @@
                              button_details: 'name is missing',
                              button_description: 'User allowed to enter item name',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  amount: '10.00'
                              }
@@ -127,7 +120,6 @@
                              button_details: 'Two name params, second is empty',
                              button_description: 'User allowed to enter item name (default set to first value)',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  amount: '10.00',
                                  item_name: [ 'default name', '' ]
@@ -138,7 +130,6 @@
                              button_details: 'undefined_quantity set',
                              button_description: 'Initial quantity is 2, user allowed to change',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  item_name: 'Myke Specify Your Quantity Item',
                                  amount: '1.11',
@@ -151,7 +142,6 @@
                              button_details: 'Simple item with only return URL',
                              button_description: 'return URL by itself is NOT present in cart but in AppData',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  item_name: 'Myke Item',
                                  return: 'http://10.176.3.187/wps?return_reason=payment_complete',
@@ -163,7 +153,6 @@
                              button_details: 'Simple item with only cancel URL',
                              button_description: 'cancel URL by itself IS present in cart and in AppData',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  item_name: 'Myke Item',
                                  cancel_return: 'http://10.176.3.187/wps?return_reason=payment_cancelled',
@@ -175,7 +164,6 @@
                              button_details: 'Simple item with return and cancel URL',
                              button_description: 'return and cancel URLs both present in cart and AppData',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  item_name: 'Myke Item',
                                  return: 'http://10.176.3.187/wps?return_reason=payment_complete',
@@ -188,7 +176,6 @@
                              button_details: 'Many different WPS parameters',
                              button_description: 'The One Ring with many parameters and options to show on mini cart',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  item_name: 'The One Ring',
                                  return: 'http://10.176.3.187/wps?return_reason=payment_complete',
@@ -213,7 +200,6 @@
                              button_details: 'Buy now with first and last names and address',
                              button_description: 'First and last names should be populated in guest',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  item_name: 'Myke Test Item',
                                  amount: '1.11',
@@ -231,7 +217,6 @@
                              button_details: 'Address with spaces in zip',
                              button_description: 'Spaces should be honored in zip',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  item_name: 'Myke Test Address Item',
                                  charset: 'utf-8',
@@ -251,7 +236,6 @@
                              button_details: 'Pricing selection without a name',
                              button_description: 'Amount should be calculated when os0 but no on0 present',
                              button_params: {
-                                 business: 'qa155-seller@paypal.com',
                                  cmd: '_xclick',
                                  item_name: 'Pricing option but no name',
                                  os0: 'Large',
@@ -290,17 +274,37 @@
                  // components instead of having everything in a single one.
                  this.state.input = event.target.value;
              },
-             interceptEnter: function(event) {
-                 if (event.which === 13) {
-                     console.log(`Handling <Enter> key press`);
-                     this.setStage();
-                 }
-             },
              setStage: function() {
                  console.info(`Handling setting the stage to: [${this.state.input.toLowerCase()}]`);
                  // XXX/mm do some sort of validation?
                  // Also, here might be a spot to change a 'business' param on a per-stage basis?
                  this.setState({ stage: this.state.input.toLowerCase() });
+             },
+             interceptStageEnter: function(event) {
+                 if (event.which === 13) {
+                     console.log(`Handling <Enter> key press in stage`);
+                     this.setStage();
+                 }
+             },
+             // I guess "set the business" should also be it's own React component.
+             // Which then feeds into the "list of buttons" component.
+             handleSetBusiness: function(event) {
+                 console.log(`Handle Set Business button click.`);
+                 this.setBusiness();
+             },
+             handleBusinessInput: function(event) {
+                 // See comment in handleStageInput
+                 this.state.input = event.target.value;
+             },
+             setBusiness: function() {
+                 console.info(`Handling setting the business to: [${this.state.input}]`);
+                 this.setState({ business: this.state.input });
+             },
+             interceptBusinessEnter: function(event) {
+                 if (event.which === 13) {
+                     console.log(`Handling <Enter> key press in business`);
+                     this.setBusiness();
+                 }
              },
              // Build the form inputs for the WPS form. Returns an array of one (or more) of these lines:
              //    <input name="amount"  value="25.00"type="hidden" />
@@ -322,9 +326,9 @@
                              );
                          });
                      } else {
-                         console.log(`  Form single input #${pnum}: ${param} = ${button_params[param]}`);
+                         console.log(`  Form single input #${pnum}: ${param} = ${pvalue}`);
                          form_inputs.push (
-                             <input key={pnum++} name={param} value={button_params[param]} type="hidden" />
+                             <input key={pnum++} name={param} value={pvalue} type="hidden" />
                          );
                      }
                  }
@@ -332,7 +336,9 @@
                  return form_inputs;
              },
              buildStageButton: function(button, idx) {
-                 console.log(`Building button '${button.button_name}' at idx ${idx}`);
+                 console.log(`Button:  '${button.button_name}' at idx ${idx}`);
+                 console.log(`Stage:    ${this.state.stage} at idx ${idx}`);
+                 console.log(`Business: ${this.state.business} at idx ${idx}`);
                  let url;
                  if (this.state.stage.toLowerCase() === 'localhost') {
                      url = `http://${this.state.stage}.qa.paypal.com:8000/cgi-bin/webscr`;
@@ -351,6 +357,7 @@
                          <td>
                              <form action={url} method="post" target="wps">
                                  {this.buildFormInputs(button.button_params)}
+                                 <input name="business" value={this.state.business} type="hidden" />
                                  <input value={name} type="submit" />
                              </form>
                          </td>
@@ -367,9 +374,14 @@
              // Build the area displaying all the buttons and their descriptions.
              buildAllButtons: function() {
                  console.group(`Building ${this.state.buttons.length} total buttons:`);
+                 console.log(`Stage: ${this.state.stage}`);
+                 console.log(`Business: ${this.state.business}`);
                  console.table(this.state.buttons);
                  let button_rows = this.state.buttons.map((button, idx) => {
-                     return this.buildStageButton(button, idx);
+                     console.groupCollapsed(`Building button: '${button.button_name}'`);
+                     let sb = this.buildStageButton(button, idx);
+                     console.groupEnd(`Building button: '${button.button_name}'`);
+                     return sb;
                  });
                  console.log(`Built ${button_rows.length} button rows`);
                  console.groupEnd(`Building ${this.state.buttons.length} total buttons:`);
@@ -408,7 +420,7 @@
                                  <input className="form-control"
                                         maxLength="50" placeholder="enter stage name"
                                         onChange={this.handleStageInput}
-                                        onKeyPress={this.interceptEnter} />
+                                        onKeyPress={this.interceptStageEnter} />
                              </div>
                          </div>
                          <div className="row">
@@ -421,10 +433,40 @@
                  );
              },
 
+             // Build the area for inputting a new seller ID to use.
+             buildBusinessInputArea: function() {
+                 let areaClass = "container bg-info";
+                 return (
+                     <div className={areaClass}>
+                         <br/>
+                         <div className="row">
+                             <div className="col-sm-2 col-md-1">
+                                 <button className="btn btn-default"
+                                         onClick={this.handleSetBusiness}>Set Business</button>
+                             </div>
+                             <div className="col-sm-10 col-md-11">
+                                 <input className="form-control"
+                                        maxLength="50" placeholder="enter business email"
+                                        onChange={this.handleBusinessInput}
+                                        onKeyPress={this.interceptBusinessEnter} />
+                             </div>
+                         </div>
+                         <div className="row">
+                             <div className="col-sm-12">
+                                 Current Business: <strong className="text-success">{this.state.business}</strong>
+                             </div>
+                         </div>
+                         <br/>
+                     </div>
+                 );
+             },
+
              render: function () {
                  return (
                      <div className="well clearfix">
                          {this.buildStageInputArea()}
+                         <br/>
+                         {this.buildBusinessInputArea()}
                          <br/>
                          {this.buildAllButtons()}
                      </div>
