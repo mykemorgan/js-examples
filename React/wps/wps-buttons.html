@@ -6,9 +6,9 @@
 
         <!-- Point to your own jquery -->
         <script src="../../jquery-3.1.1.js"></script>
-        <!-- Latest is now 16.0.0, which we need to adjust to -->
-        <script src="https://unpkg.com/react@15.0.0/dist/react.js"></script>
-        <script src="https://unpkg.com/react-dom@15.0.0/dist/react-dom.js"></script>
+        <!-- Latest is now 16.0.0. Use it explicitly for now -->
+        <script src="https://unpkg.com/react@16.0.0/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js"></script>
         <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -20,250 +20,250 @@
         <div id="wpsbuttons"></div>
 
         <script type="text/babel">
-         var WpsButtons = React.createClass({
-             getInitialState: function() {
-                 return {
-                     input: '',
-                     stage: 'msmaster',
-                     business: 'qa155-seller@paypal.com',
-                     buttons: [
-                         {
-                             button_name: 'Buy Now Item',
-                             button_details: 'Simple buy now item',
-                             button_description: 'Minimal params and multiple amounts',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 item_name: 'Myke Item',
-                                 amount: [ '1.11', '2.22', '3.33' ] // result should be the last value
-                             }
-                         },
-                         {
-                             button_name: 'Buy Now - fr_FR',
-                             button_details: 'Buy now item with locale',
-                             button_description: 'fr_FR locale with simple button',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 lc: 'fr_FR',
-                                 item_name: 'Myke fr_FR Item',
-                                 amount: '3.33'
-                             }
-                         },
-                         {
-                             button_name: 'Buy Now - es_ES',
-                             button_details: 'Buy now item with locale',
-                             button_description: 'es_ES locale with simple button',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 lc: 'es_ES',
-                                 item_name: 'Myke es_ES Item',
-                                 amount: '3.33'
-                             }
-                         },
-                         {
-                             button_name: 'Buy Now Item - Discount',
-                             button_details: 'Buy now with discount amount',
-                             button_description: 'Discount should be subtracted from total',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 item_name: 'Myke Discounted Item',
-                                 amount: '10.00',
-                                 discount_amount: '4'
-                             }
-                         },
-                         {
-                             button_name: 'Cart Upload',
-                             button_details: 'Three item cart',
-                             button_description: 'Three items with item_numbers and ampersands',
-                             button_params: {
-                                 cmd: '_cart',
-                                 upload: '1',
-                                 item_name_1: 'Myke Item #1 & extras',
-                                 item_number_1: '1234-1',
-                                 amount_1: '1.11',
-                                 item_name_2: 'Myke Item #2 & extras',
-                                 item_number_2: '1234-2',
-                                 amount_2: '2.22',
-                                 item_name_3: 'Myke Item #3 & bonus stuff',
-                                 amount_3: '3.33',
-                                 item_number_3: '1234-3'
-                             }
-                         },
-                         {
-                             button_name: 'Open Button - amount',
-                             button_details: 'amount is missing',
-                             button_description: 'User allowed to enter amount',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 item_name: 'Myke Pick Your Amount Item',
-                             }
-                         },
-                         {
-                             button_name: 'Open Button - amount',
-                             button_details: 'Two amount params, second is empty',
-                             button_description: 'User allowed to enter amount (default set to first value)',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 item_name: 'Myke Pick Your Amount Item',
-                                 amount: [ '10.00', '' ]
-                             }
-                         },
-                         {
-                             button_name: 'Open Button - name',
-                             button_details: 'name is missing',
-                             button_description: 'User allowed to enter item name',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 amount: '10.00'
-                             }
-                         },
-                         {
-                             button_name: 'Open Button - name',
-                             button_details: 'Two name params, second is empty',
-                             button_description: 'User allowed to enter item name (default set to first value)',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 amount: '10.00',
-                                 item_name: [ 'default name', '' ]
-                             }
-                         },
-                         {
-                             button_name: 'Open Button - quantity',
-                             button_details: 'undefined_quantity set',
-                             button_description: 'Initial quantity is 2, user allowed to change',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 item_name: 'Myke Specify Your Quantity Item',
-                                 amount: '1.11',
-                                 quantity: '2',
-                                 undefined_quantity: '1'
-                             }
-                         },
-                         {
-                             button_name: 'Buy Now with return URL',
-                             button_details: 'Simple item with only return URL',
-                             button_description: 'return URL by itself is NOT present in cart but in AppData',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 item_name: 'Myke Item',
-                                 return: 'http://10.176.3.187/wps?return_reason=payment_complete',
-                                 amount: '1.11'
-                             }
-                         },
-                         {
-                             button_name: 'Buy Now with cancel URL',
-                             button_details: 'Simple item with only cancel URL',
-                             button_description: 'cancel URL by itself IS present in cart and in AppData',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 item_name: 'Myke Item',
-                                 cancel_return: 'http://10.176.3.187/wps?return_reason=payment_cancelled',
-                                 amount: '1.11'
-                             }
-                         },
-                         {
-                             button_name: 'Buy Now with both URLs',
-                             button_details: 'Simple item with return and cancel URL',
-                             button_description: 'return and cancel URLs both present in cart and AppData',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 item_name: 'Myke Item',
-                                 return: 'http://10.176.3.187/wps?return_reason=payment_complete',
-                                 cancel_return: 'http://10.176.3.187/wps?return_reason=payment_cancelled',
-                                 amount: '1.11'
-                             }
-                         },
-                         {
-                             button_name: 'Buy Now with all the Things',
-                             button_details: 'Many different WPS parameters',
-                             button_description: 'The One Ring with many parameters and options to show on mini cart',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 item_name: 'The One Ring',
-                                 return: 'http://10.176.3.187/wps?return_reason=payment_complete',
-                                 cancel_return: 'http://10.176.3.187/wps?return_reason=payment_cancelled',
-                                 amount: '1.11',
-                                 discount_amount: '0.12',
-                                 tax: '0.22',
-                                 handling: '2.33',
-                                 shipping: '0.55',
-                                 on0: 'Size',
-                                 os0: 'Large',
-                                 on1: 'Stone',
-                                 os1: 'Diamond',
-                                 on2: 'Metal',
-                                 os2: 'Platinum',
-                                 on3: 'Setting',
-                                 os3: 'Princess'
-                             }
-                         },
-                         {
-                             button_name: 'Buy Now - Guest Names',
-                             button_details: 'Buy now with first and last names and address',
-                             button_description: 'First and last names should be populated in guest',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 item_name: 'Myke Test Item',
-                                 amount: '1.11',
-                                 first_name: 'Frodo',
-                                 last_name: 'Baggins',
-                                 landing_page: 'billing',
-                                 address1: '2211 N First St',
-                                 city: 'San Jose',
-                                 state: 'CA',
-                                 zip: '95131'
-                             }
-                         },
-                         {
-                             button_name: 'Zip With Spaces',
-                             button_details: 'Address with spaces in zip',
-                             button_description: 'Spaces should be honored in zip',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 item_name: 'Myke Test Address Item',
-                                 charset: 'utf-8',
-                                 amount: '1.11',
-                                 first_name: 'Frodo',
-                                 last_name: 'Baggins',
-                                 landing_page: 'billing',
-                                 address1: '1 Rose Cottage The Common',
-                                 address2: 'East Hanningfield',
-                                 city: 'Chelmsford',
-                                 country: 'GB',
-                                 zip: 'CM3 8AH'
-                             }
-                         },
-                         {
-                             button_name: 'Option Select but no name',
-                             button_details: 'Pricing selection without a name',
-                             button_description: 'Amount should be calculated when os0 but no on0 present',
-                             button_params: {
-                                 cmd: '_xclick',
-                                 item_name: 'Pricing option but no name',
-                                 os0: 'Large',
-                                 option_select0: 'Small',
-                                 option_amount0: '1.11',
-                                 option_select1: 'Medium',
-                                 option_amount1: '22.22',
-                                 option_select2: 'Large',
-                                 option_amount2: '333.33',
-                                 on1: 'Stone',
-                                 os1: 'Diamond',
-                                 on2: 'Metal',
-                                 os2: 'Platinum',
-                                 on3: 'Setting',
-                                 os3: 'Princess'
-                             }
-                         },
-                     ]
-                 };
-             },
+         class WpsButtons extends React.Component {
+             state =  {
+                 input: '',
+                 stage: 'msmaster',
+                 business: 'qa155-seller@paypal.com',
+                 buttons: [
+                     {
+                         button_name: 'Buy Now Item',
+                         button_details: 'Simple buy now item',
+                         button_description: 'Minimal params and multiple amounts',
+                         button_params: {
+                             cmd: '_xclick',
+                             item_name: 'Myke Item',
+                             amount: [ '1.11', '2.22', '3.33' ] // result should be the last value
+                         }
+                     },
+                     {
+                         button_name: 'Buy Now - fr_FR',
+                         button_details: 'Buy now item with locale',
+                         button_description: 'fr_FR locale with simple button',
+                         button_params: {
+                             cmd: '_xclick',
+                             lc: 'fr_FR',
+                             item_name: 'Myke fr_FR Item',
+                             amount: '3.33'
+                         }
+                     },
+                     {
+                         button_name: 'Buy Now - es_ES',
+                         button_details: 'Buy now item with locale',
+                         button_description: 'es_ES locale with simple button',
+                         button_params: {
+                             cmd: '_xclick',
+                             lc: 'es_ES',
+                             item_name: 'Myke es_ES Item',
+                             amount: '3.33'
+                         }
+                     },
+                     {
+                         button_name: 'Buy Now Item - Discount',
+                         button_details: 'Buy now with discount amount',
+                         button_description: 'Discount should be subtracted from total',
+                         button_params: {
+                             cmd: '_xclick',
+                             item_name: 'Myke Discounted Item',
+                             amount: '10.00',
+                             discount_amount: '4'
+                         }
+                     },
+                     {
+                         button_name: 'Cart Upload',
+                         button_details: 'Three item cart',
+                         button_description: 'Three items with item_numbers and ampersands',
+                         button_params: {
+                             cmd: '_cart',
+                             upload: '1',
+                             item_name_1: 'Myke Item #1 & extras',
+                             item_number_1: '1234-1',
+                             amount_1: '1.11',
+                             item_name_2: 'Myke Item #2 & extras',
+                             item_number_2: '1234-2',
+                             amount_2: '2.22',
+                             item_name_3: 'Myke Item #3 & bonus stuff',
+                             amount_3: '3.33',
+                             item_number_3: '1234-3'
+                         }
+                     },
+                     {
+                         button_name: 'Open Button - amount',
+                         button_details: 'amount is missing',
+                         button_description: 'User allowed to enter amount',
+                         button_params: {
+                             cmd: '_xclick',
+                             item_name: 'Myke Pick Your Amount Item',
+                         }
+                     },
+                     {
+                         button_name: 'Open Button - amount',
+                         button_details: 'Two amount params, second is empty',
+                         button_description: 'User allowed to enter amount (default set to first value)',
+                         button_params: {
+                             cmd: '_xclick',
+                             item_name: 'Myke Pick Your Amount Item',
+                             amount: [ '10.00', '' ]
+                         }
+                     },
+                     {
+                         button_name: 'Open Button - name',
+                         button_details: 'name is missing',
+                         button_description: 'User allowed to enter item name',
+                         button_params: {
+                             cmd: '_xclick',
+                             amount: '10.00'
+                         }
+                     },
+                     {
+                         button_name: 'Open Button - name',
+                         button_details: 'Two name params, second is empty',
+                         button_description: 'User allowed to enter item name (default set to first value)',
+                         button_params: {
+                             cmd: '_xclick',
+                             amount: '10.00',
+                             item_name: [ 'default name', '' ]
+                         }
+                     },
+                     {
+                         button_name: 'Open Button - quantity',
+                         button_details: 'undefined_quantity set',
+                         button_description: 'Initial quantity is 2, user allowed to change',
+                         button_params: {
+                             cmd: '_xclick',
+                             item_name: 'Myke Specify Your Quantity Item',
+                             amount: '1.11',
+                             quantity: '2',
+                             undefined_quantity: '1'
+                         }
+                     },
+                     {
+                         button_name: 'Buy Now with return URL',
+                         button_details: 'Simple item with only return URL',
+                         button_description: 'return URL by itself is NOT present in cart but in AppData',
+                         button_params: {
+                             cmd: '_xclick',
+                             item_name: 'Myke Item',
+                             return: 'http://10.176.3.187/wps?return_reason=payment_complete',
+                             amount: '1.11'
+                         }
+                     },
+                     {
+                         button_name: 'Buy Now with cancel URL',
+                         button_details: 'Simple item with only cancel URL',
+                         button_description: 'cancel URL by itself IS present in cart and in AppData',
+                         button_params: {
+                             cmd: '_xclick',
+                             item_name: 'Myke Item',
+                             cancel_return: 'http://10.176.3.187/wps?return_reason=payment_cancelled',
+                             amount: '1.11'
+                         }
+                     },
+                     {
+                         button_name: 'Buy Now with both URLs',
+                         button_details: 'Simple item with return and cancel URL',
+                         button_description: 'return and cancel URLs both present in cart and AppData',
+                         button_params: {
+                             cmd: '_xclick',
+                             item_name: 'Myke Item',
+                             return: 'http://10.176.3.187/wps?return_reason=payment_complete',
+                             cancel_return: 'http://10.176.3.187/wps?return_reason=payment_cancelled',
+                             amount: '1.11'
+                         }
+                     },
+                     {
+                         button_name: 'Buy Now with all the Things',
+                         button_details: 'Many different WPS parameters',
+                         button_description: 'The One Ring with many parameters and options to show on mini cart',
+                         button_params: {
+                             cmd: '_xclick',
+                             item_name: 'The One Ring',
+                             return: 'http://10.176.3.187/wps?return_reason=payment_complete',
+                             cancel_return: 'http://10.176.3.187/wps?return_reason=payment_cancelled',
+                             amount: '1.11',
+                             discount_amount: '0.12',
+                             tax: '0.22',
+                             handling: '2.33',
+                             shipping: '0.55',
+                             on0: 'Size',
+                             os0: 'Large',
+                             on1: 'Stone',
+                             os1: 'Diamond',
+                             on2: 'Metal',
+                             os2: 'Platinum',
+                             on3: 'Setting',
+                             os3: 'Princess'
+                         }
+                     },
+                     {
+                         button_name: 'Buy Now - Guest Names',
+                         button_details: 'Buy now with first and last names and address',
+                         button_description: 'First and last names should be populated in guest',
+                         button_params: {
+                             cmd: '_xclick',
+                             item_name: 'Myke Test Item',
+                             amount: '1.11',
+                             first_name: 'Frodo',
+                             last_name: 'Baggins',
+                             landing_page: 'billing',
+                             address1: '2211 N First St',
+                             city: 'San Jose',
+                             state: 'CA',
+                             zip: '95131'
+                         }
+                     },
+                     {
+                         button_name: 'Zip With Spaces',
+                         button_details: 'Address with spaces in zip',
+                         button_description: 'Spaces should be honored in zip',
+                         button_params: {
+                             cmd: '_xclick',
+                             item_name: 'Myke Test Address Item',
+                             charset: 'utf-8',
+                             amount: '1.11',
+                             first_name: 'Frodo',
+                             last_name: 'Baggins',
+                             landing_page: 'billing',
+                             address1: '1 Rose Cottage The Common',
+                             address2: 'East Hanningfield',
+                             city: 'Chelmsford',
+                             country: 'GB',
+                             zip: 'CM3 8AH'
+                         }
+                     },
+                     {
+                         button_name: 'Option Select but no name',
+                         button_details: 'Pricing selection without a name',
+                         button_description: 'Amount should be calculated when os0 but no on0 present',
+                         button_params: {
+                             cmd: '_xclick',
+                             item_name: 'Pricing option but no name',
+                             os0: 'Large',
+                             option_select0: 'Small',
+                             option_amount0: '1.11',
+                             option_select1: 'Medium',
+                             option_amount1: '22.22',
+                             option_select2: 'Large',
+                             option_amount2: '333.33',
+                             on1: 'Stone',
+                             os1: 'Diamond',
+                             on2: 'Metal',
+                             os2: 'Platinum',
+                             on3: 'Setting',
+                             os3: 'Princess'
+                         }
+                     },
+                 ]
+             }
+
              // I guess "set the stage" should be it's own React component.
              // Which then feeds into the "list of buttons" component.
-             handleSetStage: function(event) {
+             handleSetStage = (event) => {
                  console.log(`Handle Set Stage button click.`);
                  this.setStage();
-             },
-             handleStageInput: function(event) {
+             }
+
+             handleStageInput = (event) =>  {
                  // Calling setState() here of course means also do a render().
                  // Which means all the buttons are being regenerated on every key press in the text box!
                  // this.setState({ input: event.target.value });
@@ -274,43 +274,50 @@
                  // But this also shows how we really should be breaking this page into multiple
                  // components instead of having everything in a single one.
                  this.state.input = event.target.value;
-             },
-             setStage: function() {
+             }
+
+             setStage = () => {
                  console.info(`Handling setting the stage to: [${this.state.input.toLowerCase()}]`);
                  // XXX/mm do some sort of validation?
                  // Also, here might be a spot to change a 'business' param on a per-stage basis?
                  this.setState({ stage: this.state.input.toLowerCase() });
-             },
-             interceptStageEnter: function(event) {
+             }
+
+             interceptStageEnter = (event) =>  {
                  if (event.which === 13) {
                      console.log(`Handling <Enter> key press in stage`);
                      this.setStage();
                  }
-             },
+             }
+
              // I guess "set the business" should also be it's own React component.
              // Which then feeds into the "list of buttons" component.
-             handleSetBusiness: function(event) {
+             handleSetBusiness = (event) =>  {
                  console.log(`Handle Set Business button click.`);
                  this.setBusiness();
-             },
-             handleBusinessInput: function(event) {
+             }
+
+             handleBusinessInput = (event) =>  {
                  // See comment in handleStageInput
                  this.state.input = event.target.value;
-             },
-             setBusiness: function() {
+             }
+
+             setBusiness = () => {
                  console.info(`Handling setting the business to: [${this.state.input}]`);
                  this.setState({ business: this.state.input });
-             },
-             interceptBusinessEnter: function(event) {
+             }
+
+             interceptBusinessEnter = (event) =>  {
                  if (event.which === 13) {
                      console.log(`Handling <Enter> key press in business`);
                      this.setBusiness();
                  }
-             },
+             }
+
              // Build the form inputs for the WPS form. Returns an array of one (or more) of these lines:
              //    <input name="amount"  value="25.00"type="hidden" />
              // For each parameter in button_params.
-             buildFormInputs: function(button_params) {
+             buildFormInputs = (button_params) => {
                  console.groupCollapsed(`Building form input from parameters`);
                  let form_inputs = [],
                      pnum = 1;
@@ -335,8 +342,9 @@
                  }
                  console.groupEnd(`Building form input from parameters`);
                  return form_inputs;
-             },
-             buildStageButton: function(button, idx) {
+             }
+
+             buildStageButton = (button, idx) => {
                  console.log(`Button:  '${button.button_name}' at idx ${idx}`);
                  console.log(`Stage:    ${this.state.stage} at idx ${idx}`);
                  console.log(`Business: ${this.state.business} at idx ${idx}`);
@@ -370,10 +378,10 @@
                          </td>
                      </tr>
                  );
-             },
+             }
 
              // Build the area displaying all the buttons and their descriptions.
-             buildAllButtons: function() {
+             buildAllButtons = () => {
                  console.group(`Building ${this.state.buttons.length} total buttons:`);
                  console.log(`Stage: ${this.state.stage}`);
                  console.log(`Business: ${this.state.business}`);
@@ -400,10 +408,10 @@
                          </tbody>
                      </table>
                  );
-             },
+             }
 
              // Build the area for inputting a new stage to point to.
-             buildStageInputArea: function() {
+             buildStageInputArea = () => {
                  let areaClass = "container bg-info";
                  if (this.state.stage === 'live') {
                      console.log(`Using LIVE danger background`);
@@ -432,10 +440,10 @@
                          <br/>
                      </div>
                  );
-             },
+             }
 
              // Build the area for inputting a new seller ID to use.
-             buildBusinessInputArea: function() {
+             buildBusinessInputArea = () => {
                  let areaClass = "container bg-info";
                  return (
                      <div className={areaClass}>
@@ -460,9 +468,9 @@
                          <br/>
                      </div>
                  );
-             },
+             }
 
-             render: function () {
+             render() {
                  return (
                      <div className="well clearfix">
                          {this.buildStageInputArea()}
@@ -473,7 +481,7 @@
                      </div>
                  );
              }
-         });
+         }
 
          ReactDOM.render(
              <WpsButtons />,
