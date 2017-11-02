@@ -20,9 +20,13 @@ class Board extends React.Component {
         }
     }
 
-    // TODO - Don't let people go in an occupied square!
     handleClick(i) {
         const squares = this.state.squares.slice();
+        if (calculateWinner(squares) || squares[i]) {
+            // Don't let people go in an occupied square,
+            // or go anywhere after there is a winner.
+            return;
+        }
         squares[i] = this.state.xIsNext ? 'X' : 'O';
         this.setState(
             {
