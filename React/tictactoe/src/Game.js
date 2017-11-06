@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './Game.css';
 
-function Square(props) {
+function Square({onClick, value}) {
     return (
-        <button className="square" onClick={props.onClick}>
-        {props.value}
+        <button className="square" onClick={onClick}>
+        {value}
         </button>
     );
 }
@@ -17,7 +17,7 @@ class Board extends React.Component {
         this.state = {
             squares: Array(9).fill(null),
             xIsNext: true
-        }
+        };
     }
 
     handleClick(i) {
@@ -47,9 +47,12 @@ class Board extends React.Component {
 
     render() {
         const winner = calculateWinner(this.state.squares);
+        const gameOver = calculateGameOver(this.state.squares);
         let status;
         if (winner) {
             status = `We have a winner! Congrats to: ${winner}`;
+        } else if (gameOver) {
+            status = `Game over with no winner!`;
         } else {
             status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
         }
@@ -97,6 +100,10 @@ function calculateWinner(squares) {
         }
     }
     return null;
+}
+
+function calculateGameOver(squares) {
+    return squares.indexOf(null) === -1;
 }
 
 
