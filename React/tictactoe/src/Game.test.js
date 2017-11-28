@@ -8,7 +8,7 @@ it('renders without crashing', () => {
     ReactDOM.render(<Game />, div);
 });
 
-it('renders the initial Game status properly', () => {
+it('renders the initial Game status message properly', () => {
     const div = document.createElement('div');
     ReactDOM.render(<Game />, div);
 
