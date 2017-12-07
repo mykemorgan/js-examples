@@ -1,70 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './Game.css';
 
-
-// A Modal that's an abstraction around the React16 createPortal API.
-// Need the root DOM node to which we attach this modal.
-// TODO - Hack that for now by grabbing it directly. Really should be passed in props?
-// TODO - Probably is time to split all these Components into their own files?
-const modalRoot = document.getElementById('modal-root');
-class Modal extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.el = document.createElement('div');
-    }
-    componentDidMount() {
-        modalRoot.appendChild(this.el);
-    }
-    componentWillUnount() {
-        modalRoot.removeChild(this.el);
-    }
-
-    render() {
-        return ReactDOM.createPortal(this.props.children, this.el);
-    }
-}
-
-function Square({onClick, value}) {
-    return (
-        <button className="square" onClick={onClick}>
-        {value}
-        </button>
-    );
-}
-
-class Board extends React.Component {
-    renderSquare(i) {
-        return (
-            <Square
-                value={this.props.squares[i]}
-                onClick={() => this.props.onClick(i)}
-            />
-        );
-    }
-    render() {
-        return (
-            <div>
-            <div className="board-row">
-            {this.renderSquare(0)}
-            {this.renderSquare(1)}
-            {this.renderSquare(2)}
-            </div>
-            <div className="board-row">
-            {this.renderSquare(3)}
-            {this.renderSquare(4)}
-            {this.renderSquare(5)}
-            </div>
-            <div className="board-row">
-            {this.renderSquare(6)}
-            {this.renderSquare(7)}
-            {this.renderSquare(8)}
-            </div>
-            </div>
-        );
-    }
-}
+import Modal from './Modal';
+import Board from './Board';
 
 // Determine if anyone has won yet.
 // Returns 'X' or 'O' if one of them a winner, null otherwise.
@@ -93,6 +31,7 @@ function calculateGameOver(squares) {
 }
 
 
+// TicTacToe master game controller Component
 class Game extends React.Component {
     constructor(props) {
         super(props);
