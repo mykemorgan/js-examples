@@ -2,6 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './Game.css';
 
+
+// A Modal that's an abstraction around the React16 createPortal API.
+// Need the root DOM node to which we attach this modal.
+// TODO - Hack that for now by grabbing it directly. Really should be passed in props?
+// TODO - Probably is time to split all these Components into their own files?
+const modalRoot = document.getElementById('modal-root');
+class Modal extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.el = document.createElement('div');
+    }
+    componentDidMount() {
+        modalRoot.appendChild(this.el);
+    }
+    componentWillUnount() {
+        modalRoot.removeChild(this.el);
+    }
+
+    render() {
+        return ReactDOM.createPortal(this.props.children, this.el);
+    }
+}
+
 function Square({onClick, value}) {
     return (
         <button className="square" onClick={onClick}>
@@ -72,7 +96,11 @@ function calculateGameOver(squares) {
 class Game extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
+        this.state = this.initialGameState();
+    }
+
+    initialGameState() {
+        return {
             history: [ {
                 squares: Array(9).fill(null)
             }],
@@ -109,11 +137,15 @@ class Game extends React.Component {
         });
     }
 
+    resetGame() {
+        this.setState(this.initialGameState());
+    }
+
     render() {
         const history = this.state.history;
         const current = history[this.state.moveNumber];
         const winner = calculateWinner(current.squares);
-        const gameOver = calculateGameOver(current.squares);
+        const draw = calculateGameOver(current.squares);
 
         const moves = history.map((step, move) => {
             const desc = move ? `Go to move ${move}` : `Go to game start`;
@@ -127,11 +159,20 @@ class Game extends React.Component {
         let status;
         if (winner) {
             status = `We have a winner! Congrats to: ${winner}`;
-        } else if (gameOver) {
+        } else if (draw) {
             status = `Game over with no winner!`;
         } else {
             status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
         }
+        const modal = (winner || draw) ? (
+            <Modal>
+            <div className="modal">
+            Game Over!
+            {status}
+            <button onClick={() => this.resetGame()}>Reset Game</button>
+            </div>
+            </Modal>
+        ) : null;
 
         return (
             <div className="game">
@@ -141,7 +182,8 @@ class Game extends React.Component {
             <div className="game-info">
                 <div>{status}</div>
                 <ol>{moves}</ol>
-                </div>
+            </div>
+            {modal}
             </div>
         );
     }
