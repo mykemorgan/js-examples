@@ -2,21 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // A Modal that's an abstraction around the React16 createPortal API.
-// Need the root DOM node to which we attach this modal.
-// TODO - Hack that for now by grabbing it directly. Really should be passed in props?
-// TODO - Probably is time to split all these Components into their own files?
-const modalRoot = document.getElementById('modal-root');
+// Accepts the root DOM node into which we render this modal.
 class Modal extends React.Component {
-    constructor(props) {
+    constructor({modalRoot}, ...props) {
         super(props);
 
+        // Create an element into which to render this portal
         this.el = document.createElement('div');
+        this.modalRoot = modalRoot;
     }
     componentDidMount() {
-        modalRoot.appendChild(this.el);
+        // Stick our rendered portal into the specified modal root component
+        this.modalRoot.appendChild(this.el);
     }
     componentWillUnount() {
-        modalRoot.removeChild(this.el);
+        this.modalRoot.removeChild(this.el);
     }
 
     render() {

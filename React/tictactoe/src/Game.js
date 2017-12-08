@@ -103,8 +103,10 @@ class Game extends React.Component {
         } else {
             status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
         }
+        // Pass the modal popover's root element to render the "game over" Modal into.
+        const modalRoot = document.getElementById('modal-root');
         const modal = (winner || draw) ? (
-            <Modal>
+            <Modal modalRoot={modalRoot}>
             <div className="modal">
             Game Over!
             {status}
