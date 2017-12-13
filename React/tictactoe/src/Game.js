@@ -1,8 +1,18 @@
 import React from 'react';
+// import { CSSTransition } from 'react-transition-group';
 import './Game.css';
 
 import Modal from './Modal';
 import Board from './Board';
+
+// XXX/TODO Look into animating the modal:
+// https://reactcommunity.org/react-transition-group/
+// The above seems non-obvious for portals, but we're trying below.
+//
+// Next up, try this guy's example using react-motion:
+// https://github.com/touqeerkhan11/react-portal-example
+// Now in UIModal.js file
+
 
 // Determine if anyone has won yet.
 // Returns 'X' or 'O' if one of them a winner, null otherwise.
@@ -31,6 +41,32 @@ function calculateGameOver(squares) {
 }
 
 
+// let cssapply = (node, appearing) => {
+//     console.log(`CSS being applied ${appearing}`);
+// };
+
+// let cssremove = (node, appearing) => {
+//     console.log(`CSS being removed ${appearing}`);
+// };
+
+// const PopUp = ({children, ...props}) => {
+//     console.log(`Rendering the PopUp!`);
+//     console.log(props);
+
+//     return (
+//     <CSSTransition
+//       {...props}
+//       timeout={500}
+//       classNames="popup"
+//       onEnter={(n, a) => cssapply(n, a)}
+//       onEntering={(n, a) => cssapply(n, a)}
+//       onEntered={(n, a) => cssremove(n, a)}
+//     >
+//       {children}
+//     </CSSTransition>
+//     );
+// }
+
 // TicTacToe master game controller Component
 class Game extends React.Component {
     constructor(props) {
@@ -44,7 +80,8 @@ class Game extends React.Component {
                 squares: Array(9).fill(null)
             }],
             moveNumber: 0,
-            xIsNext: true
+            xIsNext: true,
+            showModal: false
         };
     }
 
@@ -77,6 +114,7 @@ class Game extends React.Component {
     }
 
     resetGame() {
+        console.log(`Game::resetGame()`);
         this.setState(this.initialGameState());
     }
 
@@ -95,6 +133,7 @@ class Game extends React.Component {
             );
         });
 
+        let { showModal } = this.state;
         let status;
         if (winner) {
             status = `We have a winner! Congrats to: ${winner}`;
@@ -103,30 +142,62 @@ class Game extends React.Component {
         } else {
             status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
         }
-        // Pass the modal popover's root element to render the "game over" Modal into.
-        const modalRoot = document.getElementById('modal-root');
-        const modal = (winner || draw) ? (
-            <Modal modalRoot={modalRoot}>
-            <div className="modal">
-            Game Over!
-            {status}
-            <button onClick={() => this.resetGame()}>Reset Game</button>
-            </div>
-            </Modal>
-        ) : null;
 
+        // New style Modal WIP to get animations to work
         return (
             <div className="game">
             <div className="game-board">
-                <Board squares={current.squares} onClick={(i) => this.handleClick(i)} />
+              <Board squares={current.squares} onClick={(i) => this.handleClick(i)} />
             </div>
             <div className="game-info">
-                <div>{status}</div>
-                <ol>{moves}</ol>
+              <div>{status}</div>
+              <ol>{moves}</ol>
             </div>
-            {modal}
+            <div>
+                <button className="show-modal"
+                        onClick={() => this.setState({showModal: !showModal})}>
+                Show Modal
+                </button>
+            </div>
+                <Modal header="Game Status"
+                       open={winner || draw || showModal}
+                       closeMsg="Reset Game"
+                       onClose={() => this.resetGame()}
+                >
+                  <span>Game Over!</span><br></br>
+                  <span>{status}</span><br></br>
+                  <button onClick={() => this.resetGame()}>Reset Game</button>
+              </Modal>
             </div>
         );
+
+        // Old style Modal
+        // Pass the modal popover's root element to render the "game over" Modal into.
+//        const modalRoot = document.getElementById('modal-root');
+//        const modalRoot = document.body; // Could also just attach it directly to the top level...
+
+        // const modal = (winner || draw) ? (
+        //  <Modal modalRoot={modalRoot}>
+        //     <div className="modal">
+        //     Game Over!
+        //     {status}
+        //     <button onClick={() => this.resetGame()}>Reset Game</button>
+        //     </div>
+        //  </Modal>
+        // ) : null;
+
+        // return (
+        //     <div className="game">
+        //     <div className="game-board">
+        //         <Board squares={current.squares} onClick={(i) => this.handleClick(i)} />
+        //     </div>
+        //     <div className="game-info">
+        //         <div>{status}</div>
+        //         <ol>{moves}</ol>
+        //     </div>
+        //     {modal}
+        //     </div>
+        // );
     }
 }
 
