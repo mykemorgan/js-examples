@@ -16,14 +16,13 @@ class Portal extends React.Component {
         this.portalRoot = portalRoot;
     }
     componentDidMount() {
+        console.log(`Portal::componentDidMount() - appending container to portalRoot`);
         // Stick our rendered portal into the specified modal root component
         this.portalRoot.appendChild(this.container);
-        console.log(`Portal::componentDidMount()`);
-        // Hmm, maybe here need to trigger the actual animation somehow?
     }
     componentWillUnmount() {
+        console.log(`Portal::componentWillUnmount() - removing child from portalRoot`);
         this.portalRoot.removeChild(this.container);
-        console.log(`Portal::componentWillUnmount()`);
     }
 
     render() {
@@ -35,7 +34,10 @@ class Portal extends React.Component {
     // Below is just stuff I'm curious about
     // ----------------------------------------------------------------------
     componentWillUpdate() {
-        console.log(`Portal::componentWillUpdate()`);
+        console.debug(`Portal::componentWillUpdate()`);
+    }
+    componentWillMount() {
+        console.debug(`Portal::componentWillMount()`);
     }
 }
 

@@ -21,11 +21,23 @@ class Modal extends React.Component {
     componentDidMount() {
         console.log(`Modal::componentDidMount()`);
     }
-    // XXX/mm Why componentWillUpdate() get called here but in GameOver componentDidMount() gets called?
-    // Thus if we set set an animation timeout it has to be here.
-    // This gets called before render().
-    componentWillUpdate() {
-        console.log(`Modal::componentWillUpdate()`);
+    // See note in GameOver Component about difference between componentDidUpdate() here
+    // and componentDidMount() there.
+    //
+    // Therefore if we set set an animation timeout it has to be:
+    // in DidMount in GameOver, called after render().
+    // in DidUpdate in Model, also called after render().
+    componentDidUpdate() {
+        console.group(`Modal::componentDidUpdate()`);
+        // Don't do the open animation after the window closed.
+        // XXX/mm Do a close animation instead in the WillUpdate?
+        if (!this.props.open) {
+            console.debug(`Closing Modal: skipping animation`);
+            console.groupEnd(`Modal::componentDidUpdate()`);
+            return;
+        }
+
+        console.log(`Modal animation timeout launched DidUpdate()`);
         // If we set set an animation timeout it has to be here.
 
         // XXX/mm Fine for a test but we can't be having the Modal hard code the animation...
@@ -48,11 +60,22 @@ class Modal extends React.Component {
                 backgrounds[0].style.backgroundColor = 'rgba(33, 33, 33, 0.85)';
             }
         }, 1);
+        console.groupEnd(`Modal::componentDidUpdate()`);
     }
 
     render() {
         console.log(`Modal::render()`);
         return this.props.open ? ( <div>{this.props.children}</div> ) : null;
+    }
+
+    componentWillUpdate() {
+        console.debug(`Modal::componentWillUpdate()`);
+    }
+    componentWillMount() {
+        console.debug(`Modal::componentWillMount()`);
+    }
+    componentWillUnmount() {
+        console.debug(`Modal::componentWillUnmount()`);
     }
 }
 
