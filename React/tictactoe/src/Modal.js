@@ -19,11 +19,14 @@ import './Modal.css';
 // @prop string {closeMsg} - close button text
 class Modal extends React.Component {
     componentDidMount() {
-        // Hmm, maybe here need to trigger the animation here somehow?
         console.log(`Modal::componentDidMount()`);
     }
+    // XXX/mm Why componentWillUpdate() get called here but in GameOver componentDidMount() gets called?
+    // Thus if we set set an animation timeout it has to be here.
+    // This gets called before render().
     componentWillUpdate() {
         console.log(`Modal::componentWillUpdate()`);
+        // If we set set an animation timeout it has to be here.
 
         // XXX/mm Fine for a test but we can't be having the Modal hard code the animation...
         //        Should really call a callback to invoke to do the animation.
@@ -42,69 +45,15 @@ class Modal extends React.Component {
             let backgrounds = document.getElementsByClassName('modal-background');
             console.log(`Found ${backgrounds.length} modal-backgrounds`);
             if (backgrounds && backgrounds[0]) {
-                backgrounds[0].style['background-color'] = 'rgba(33, 33, 33, 0.85)';
+                backgrounds[0].style.backgroundColor = 'rgba(33, 33, 33, 0.85)';
             }
-        }, 10);
+        }, 1);
     }
 
     render() {
         console.log(`Modal::render()`);
-        return this.props.open ? (
-            <div>
-                <div className="modal-background" />
-                <div role="dialog" className="modal-dialog">
-                    <header>
-                        <span>{this.props.header}</span>
-                        <button
-                            onClick={() => this.props.onClose()}
-                            type="button"
-                            aria-label="close"
-                        >
-                            {this.props.closeMsg ? this.props.closeMsg : 'CLOSE'}
-                        </button>
-                    </header>
-                <div className="modal-content">{this.props.children}</div>
-                </div>
-                </div>
-        ) : null;
+        return this.props.open ? ( <div>{this.props.children}</div> ) : null;
     }
 }
 
-
-// Old style Modal
-// Where the modal was handling the portal creation.
-
-// A Modal that's an abstraction around the React16 createPortal API.
-// Accepts the root DOM node into which we render this modal.
-/* class OldModal extends React.Component {
- *     constructor({modalRoot}, ...props) {
- *         super(props);
- *
- *         // Create an element into which to render this portal
- *         this.el = document.createElement('div');
- *         this.modalRoot = modalRoot;
- *     }
- *     componentDidMount() {
- *         // Stick our rendered portal into the specified modal root component
- *         this.modalRoot.appendChild(this.el);
- *         console.log(`OldModal::componentDidMount()`);
- *         // Hmm, maybe here need to trigger the actual animation somehow?
- *     }
- *     componentWillUpdate() { // XXX/mm
- *         console.log(`OldModal::componentWillUpdate()`);
- *     }
- *     componentWillUnmount() {
- *         this.modalRoot.removeChild(this.el);
- *         console.log(`OldModal::componentWillUnmount()`);
- *     }
- *     componentDidUnmount() { // XXX/mm
- *         console.log(`OldModal::componentDidUnmount()`);
- *     }
- *
- *     render() {
- *         console.log(`OldModal::render()`);
- *         return ReactDOM.createPortal(this.props.children, this.el);
- *     }
- * }
- * */
 export default Modal;

@@ -2,6 +2,7 @@ import React from 'react';
 import './Game.css';
 
 import Portal from './Portal';
+import GameOver from './GameOver';
 import Board from './Board';
 
 // Determine if anyone has won yet.
@@ -96,6 +97,8 @@ class Game extends React.Component {
             );
         });
 
+        console.log(`Game::render()`);
+
         let status;
         if (winner) {
             status = `We have a winner! Congrats to: ${winner}`;
@@ -125,15 +128,14 @@ class Game extends React.Component {
               Test Show Portal
               </button>
             </div>
-            <Portal header="Game Status Update"
-                   open={showGameOver}
-                   portalRoot={document.getElementById('modal-root')}
-                   closeMsg="Reset Game Portal"
-                   onClose={() => this.resetGame()}
+            <Portal open={showGameOver}
+                    portalRoot={document.getElementById('modal-root')}
             >
-              <span>Game Over!</span><br />
-              <span>{status}</span><br />
-              <button onClick={() => this.resetGame()}>Reset Game Portal Button</button>
+              <GameOver header="Game Status Update" closeMsg="Reset Game Portal" onClose={() => this.resetGame()}>
+                <span>Game Over!</span><br />
+                <span>{status}</span><br />
+                <button onClick={() => this.resetGame()}>Reset Game Portal Button</button>
+              </GameOver>
             </Portal>
             </div>
         );
