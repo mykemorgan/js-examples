@@ -45,7 +45,7 @@ class Modal extends React.Component {
         // XXX/mm Also, should be setting a named set of properties from .css file, not hard coding it.
         //        Maybe this is where we need to use CSSTransition component?
         setTimeout(() => {
-            console.log(`Modal timeout triggered after WillUpdate`);
+            console.log(`Modal timeout triggered after DidUpdate`);
             // document.getElementById('modal-dialog').style.add('.modal-dialog-open');
             // XXX/mm Getting dialog here with get by class feels like a hack. Probably should save it somehow?
             let dialogs = document.getElementsByClassName('modal-dialog');
@@ -63,9 +63,19 @@ class Modal extends React.Component {
         console.groupEnd(`Modal::componentDidUpdate()`);
     }
 
+    // Trying to divorce the styles of the content from the styles of the dialog,
+    // to make the animation of the modal appearing more straightforward.
+    // The only thing we're rendering directly here is:
+    // - a "background" div to darken the main window behind the Modal.
+    // - the actual modal dialog div, into which we stuff the children.
     render() {
         console.log(`Modal::render()`);
-        return this.props.open ? ( <div>{this.props.children}</div> ) : null;
+        return this.props.open ? (
+                <div>
+                <div className="modal-background" />
+                <div role="dialog" className="modal-dialog">{this.props.children}</div>
+                </div>
+        ) : null;
     }
 
     componentWillUpdate() {

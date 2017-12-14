@@ -1,0 +1,22 @@
+/*
+ * Styles for the GameOver status popup dialog.
+ */
+.game-over > header {
+    background: #217cba;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 2rem;
+    padding: 0 2rem;
+    min-height: 50px;
+}
+
+.game-over > header > button {
+    border: none;
+    padding: 0;
+    font-size: 1.2rem;
+    background: inherit;
+    color: white;
+    cursor: pointer;
+}

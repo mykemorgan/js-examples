@@ -1,5 +1,5 @@
 import React from 'react';
-
+import './GameOver.css';
 
 class GameOver extends React.Component {
     // React point: why in
@@ -27,21 +27,18 @@ class GameOver extends React.Component {
     render() {
         console.log(`GameOver::render()`);
         return (
-            <div>
-                <div className="modal-background" />
-                <div role="dialog" className="modal-dialog">
-                  <header>
-                    <span>{this.props.header}</span>
-                    <button
-                            onClick={() => this.props.onClose()}
-                            type="button"
-                            aria-label="close"
-                    >
-                      {this.props.closeMsg ? this.props.closeMsg : 'CLOSE'}
-                    </button>
-                  </header>
-                  <div className="modal-content">{this.props.children}</div>
-                </div>
+            <div className="game-over">
+              <header>
+                <span>{this.props.header}</span>
+                <button
+                        onClick={() => this.props.onClose()}
+                        type="button"
+                        aria-label="close"
+                >
+                  {this.props.closeMsg ? this.props.closeMsg : 'CLOSE'}
+                </button>
+              </header>
+              <div className="modal-content">{this.props.children}</div>
             </div>
         );
     }

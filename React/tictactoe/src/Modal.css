@@ -34,26 +34,5 @@
 }
 /*
  * We then need the "end state" CSS to transition into.
- * And we need to somehow apply this CSS after the first CSS is applied...
  * There are various open source React helper Components for this, but lets try it out manually first.
  */
-
-.modal-dialog > header {
-    background: #217cba;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 2rem;
-    padding: 0 2rem;
-    min-height: 50px;
-}
-
-.modal-dialog > header > button {
-    border: none;
-    padding: 0;
-    font-size: 1.2rem;
-    background: inherit;
-    color: white;
-    cursor: pointer;
-}
