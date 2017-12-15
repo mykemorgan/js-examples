@@ -1,44 +1,14 @@
 import React from 'react';
-import Transition from 'react-transition-group/Transition';
+import { CSSTransition } from 'react-transition-group';
 import './Modal.css';
 
-// A Modal message dialog.
-// Fade in animation when made visible.
-// Opaque-in the main window when made visible.
+// A Modal message dialog. When it is rendered:
+// - Fade in animation.
+// - Opaque-in the main window.
 
-// Another animation example using react-motion:
-// https://github.com/touqeerkhan11/react-portal-example
-// Now in UIModal.js file
-
-
-// ----------------------------------------------------------------------
-// Transition definitions for using react transition groups from:
-// https://reactcommunity.org/react-transition-group/
-// XXX/TODO this should really be part of the component definition.
-const transitionDuration = 300;
-const defaultStyleModal = {
-    transitionDuration: `${transitionDuration}ms`,
-    transitionProperty: `opacity`,
-};
-const transitionStylesModal = {
-    entering: { opacity: 0 },
-    entered: { opacity: 1 },
-};
-
-const defaultStyleBackground = {
-    transitionDuration: `${transitionDuration}ms`,
-    transitionProperty: `background-color`,
-};
-const transitionStylesBackground = {
-    entering: { backgroundColor: `rgba(250, 250, 250, 0.85)` },
-    entered: { backgroundColor: `rgba(33, 33, 33, 0.85)` },
-};
-
-// Trying to divorce the styles of the content from the styles of the dialog,
-// to make the animation of the modal appearing more straightforward.
 // The only thing we're rendering directly here is:
 // - a "background" div to darken the main window behind the Modal.
-// - the actual modal dialog div, into which we stuff the children.
+// - the actual modal dialog div, into which we stuff the passed children.
 //
 // @prop bool {open} - true to show the modal, false to hide
 // @prop string {header} - header text to show in the modal
@@ -54,45 +24,33 @@ class Modal extends React.Component {
         console.log(`Modal::componentDidUpdate()`);
     }
 
-    // A note on <Transition>'s prop's:
-    // the "appear" property says to apply the "enter" lifecycle transition on mount
-    // the "timeout" property governs how long between applying transitions "entering" and "entered"
+    // A note on <Transition>'s (the delegate of CSSTransition) prop's:
+    // - "appear" property says to apply the "enter" lifecycle transition on mount
+    // - "timeout" property governs how long between applying transitions "entering" and "entered"
     // Since what we want is to apply the initial state (which has a CSS transition with duration),
     // then immediately the end CSS state, we want the top level "timeout" property to be zero.
     //
     // <Transition> is thus just being used as a transparent state machine which we happen to want
     // to apply state 1 (CSS initial) then state 2 immediately (CSS endpoint) and let CSS do the animation.
     //
-    // XXX/TODO - Apply CSS styles via class names or something instead of constants in the code...
+    // A note on <CSSTransition>'s props, and the timeout difference:
+    // - Remember, the appear class is applied then the appear-active is applied NEXT TICK!
+    // - "timeout" prop is when the applied tags (e.g. appear/appear-active) are REMOVED from the child!
+    //   This means the component will REVERT back to its default state...
+    //   Pass no "timeout" prop to keep the new tags forever (which is what we want in a Modal)
+    // <CSSTransition> thus is just being used to apply and remove class names to and from its children.
     render() {
         console.log(`Modal::render()`);
         return this.props.open ? (
             <div>
-            <Transition in={this.props.open} timeout={0} appear={true}>
-            {(state) => {
-                console.log(`Applying background transition state "${state}"`);
-                return (
-                    <div className="modal-background"
-                         style={{...defaultStyleBackground,
-                                 ...transitionStylesBackground[state]}}
-                    />
-                )}
-            }
-            </Transition>
-            <Transition in={this.props.open} timeout={0} appear={true}>
-            {(state) => {
-                console.log(`Applying modal transition state "${state}"`);
-                return (
-                    <div role="dialog"
-                         className="modal-dialog"
-                         style={{...defaultStyleModal,
-                                 ...transitionStylesModal[state]}}
-                    >
+            <CSSTransition in={this.props.open} classNames="background" appear={true}>
+            <div className="modal-background"/>
+            </CSSTransition>
+            <CSSTransition in={this.props.open} classNames="dialog" appear={true}>
+                <div role="dialog" className="modal-dialog">
                     {this.props.children}
-                    </div>
-                )}
-            }
-            </Transition>
+                </div>
+            </CSSTransition>
             </div>
         ) : null;
     }

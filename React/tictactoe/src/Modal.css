@@ -1,3 +1,4 @@
+/* General properties of the modal background. Basically gray out the entire window. */
 .modal-background {
     position: fixed;
     top: 0;
@@ -5,18 +6,9 @@
     bottom: 0;
     right: 0;
     z-index: 1000;
-
-    /* As dialog fades in, darken the background behind it on the main page */
-    /* This is in the code for now. */
-/*
-    transition-duration: 0.3s;
-    transition-property: background-color;
-*/
 }
 
-/*
- * Need the initial CSS state to begin in.
- */
+/* The initial/unchanging CSS state of the Modal window itself */
 .modal-dialog {
     position: fixed;
     top: 20%;
@@ -24,19 +16,33 @@
     right: 10%;
     bottom: 20%;
     text-align: center;
-    background-color: rgba(250, 250, 250, 1);
+    background-color: rgba(220, 220, 220, 1);
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     z-index: 1001;
-
-    /* Make the dialog fade in, in place */
-    /* This is in the code for now. */
-/*
-    transition-duration: 0.3s;
-    transition-property: opacity;
-    opacity: 0.2;
-*/
 }
+
 /*
- * We then need the "end state" CSS to transition into.
- * There are various open source React helper Components for this, but lets try it out manually first.
+ * Animating the modal appearance.
+ *
+ * We need the "end state" CSS to transition into.
+ * Using CSSTransition applies two new class names to an XYZ element in succession:
+ * XYZ-appear and XYZ-appear-active.
  */
+.background-appear {
+    /* Note: obviously this might not be great if the background isn't already this color. */
+    background-color: rgba(250, 250, 250, 1);
+}
+.background-appear.background-appear-active {
+    background-color: rgba(33, 33, 33, 0.75);
+    transition-duration: 350ms;
+    transition-property: background-color;
+}
+
+.dialog-appear {
+    opacity: 0;
+}
+.dialog-appear.dialog-appear-active {
+    transition-duration: 350ms;
+    transition-property: opacity;
+    opacity: 1;
+}
