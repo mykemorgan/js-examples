@@ -5,12 +5,13 @@
     bottom: 0;
     right: 0;
     z-index: 1000;
+
     /* As dialog fades in, darken the background behind it on the main page */
+    /* This is in the code for now. */
 /*
-    background-color: rgba(250, 250, 250, 0.85);
-*/
     transition-duration: 0.3s;
     transition-property: background-color;
+*/
 }
 
 /*
@@ -28,9 +29,12 @@
     z-index: 1001;
 
     /* Make the dialog fade in, in place */
+    /* This is in the code for now. */
+/*
     transition-duration: 0.3s;
     transition-property: opacity;
     opacity: 0.2;
+*/
 }
 /*
  * We then need the "end state" CSS to transition into.
