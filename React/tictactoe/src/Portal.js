@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Modal from './Modal';
 
-// A Portal abstraction around a Modal. Rendered into a specified DOM node.
-// An abstraction around the React16 createPortal API...
-
+// An abstract Portal. Concrete descendents will render a React Component
+// into a specified DOM node.
+//
+// This is basically an abstraction around the React16 createPortal API...
+//
 // @prop {portalRoot} - The root DOM node into which we render this Portal.
 class Portal extends React.Component {
     constructor(props) {
@@ -14,6 +14,7 @@ class Portal extends React.Component {
         // Create an element into which to render this portal
         this.container = document.createElement('div');
         this.portalRoot = portalRoot;
+        console.debug(`constructed Portal`);
     }
     componentDidMount() {
         console.log(`Portal::componentDidMount() - appending container to portalRoot`);
@@ -25,10 +26,12 @@ class Portal extends React.Component {
         this.portalRoot.removeChild(this.container);
     }
 
-    render() {
-        console.log(`Portal::render()`);
-        return ReactDOM.createPortal(<Modal {...this.props} />, this.container);
-    }
+    // ----------------------------------------------------------------------
+    // render() to be implemented by concrete  descendents,
+    // depending on what class will be rendered into the portal. Example:
+    //
+    // render() { return ReactDOM.createPortal(<Modal {...this.props} />, this.container); }
+    // ----------------------------------------------------------------------
 
     // ----------------------------------------------------------------------
     // Below is just stuff I'm curious about

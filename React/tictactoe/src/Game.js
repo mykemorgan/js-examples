@@ -1,7 +1,7 @@
 import React from 'react';
 import './Game.css';
 
-import Portal from './Portal';
+import ModalPortal from './ModalPortal';
 import GameOver from './GameOver';
 import Board from './Board';
 
@@ -128,7 +128,7 @@ class Game extends React.Component {
               Test Show Portal
               </button>
             </div>
-            <Portal open={showGameOver}
+            <ModalPortal open={showGameOver}
                     portalRoot={document.getElementById('modal-root')}
             >
               <GameOver header="Game Status Update" closeMsg="Reset Game Portal" onClose={() => this.resetGame()}>
@@ -136,7 +136,7 @@ class Game extends React.Component {
                 <span>{status}</span><br />
                 <button onClick={() => this.resetGame()}>Reset Game Portal Button</button>
               </GameOver>
-            </Portal>
+            </ModalPortal>
             </div>
         );
     }
