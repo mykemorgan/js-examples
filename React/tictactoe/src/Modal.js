@@ -38,15 +38,21 @@ class Modal extends React.Component {
     // - "timeout" prop is when the applied tags (e.g. appear/appear-active) are REMOVED from the child!
     //   This means the component will REVERT back to its default state...
     //   Pass no "timeout" prop to keep the new tags forever (which is what we want in a Modal)
+    //
+    // - Sadly, "timeout" is a required property of CSSTransition and Transition, so can't omit it.
+    //   A solution is to make the default CSS of the background and dialog be the end state, and apply the
+    //   begin then end states together to trigger the transition. But then the "timeout" here has to be
+    //   longer than transition timeout. Can we grab that timeout from the transition timeout somehow?
+    //
     // <CSSTransition> thus is just being used to apply and remove class names to and from its children.
     render() {
         console.log(`Modal::render()`);
         return this.props.open ? (
             <div>
-            <CSSTransition in={this.props.open} classNames="background" appear={true}>
+            <CSSTransition in={this.props.open} classNames="background" appear={true} timeout={1000}>
             <div className="modal-background"/>
             </CSSTransition>
-            <CSSTransition in={this.props.open} classNames="dialog" appear={true}>
+            <CSSTransition in={this.props.open} classNames="dialog" appear={true} timeout={1000}>
                 <div role="dialog" className="modal-dialog">
                     {this.props.children}
                 </div>
