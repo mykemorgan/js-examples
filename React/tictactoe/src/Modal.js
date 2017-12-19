@@ -11,9 +11,6 @@ import './Modal.css';
 // - the actual modal dialog div, into which we stuff the passed children.
 //
 // @prop bool {open} - true to show the modal, false to hide
-// @prop string {header} - header text to show in the modal
-// @prop string {onClose} - callback to call when close() button pressed.
-// @prop string {closeMsg} - close button text
 class Modal extends React.Component {
     componentDidMount() {
         console.log(`Modal::componentDidMount()`);
@@ -49,10 +46,10 @@ class Modal extends React.Component {
         console.log(`Modal::render()`);
         return this.props.open ? (
             <div>
-            <CSSTransition in={this.props.open} classNames="background" appear={true} timeout={1000}>
+            <CSSTransition in={this.props.open} classNames="modal-background" appear={true} timeout={1000}>
             <div className="modal-background"/>
             </CSSTransition>
-            <CSSTransition in={this.props.open} classNames="dialog" appear={true} timeout={1000}>
+            <CSSTransition in={this.props.open} classNames="modal-dialog" appear={true} timeout={1000}>
                 <div role="dialog" className="modal-dialog">
                     {this.props.children}
                 </div>

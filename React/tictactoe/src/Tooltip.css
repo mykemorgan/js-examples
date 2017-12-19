@@ -1,5 +1,5 @@
 /* General properties of the modal background. Basically gray out the entire window. */
-.modal-background {
+.tooltip-background {
     position: fixed;
     top: 0;
     left: 0;
@@ -8,18 +8,17 @@
     z-index: 1000;
 
     /* This property will transition into this state */
-    background-color: rgba(33, 33, 33, 0.75);
+    background-color: rgba(133, 133, 33, 0.75);
 }
 
-/* The initial/unchanging CSS state of the Modal window itself */
-.modal-dialog {
+/* The initial/unchanging CSS state of the Tooltip window itself */
+.tooltip-dialog {
     position: fixed;
-    top: 20%;
-    left: 10%;
-    right: 10%;
-    bottom: 20%;
+    top: 7%;
+    left: 30%;
     text-align: center;
-    background-color: rgba(220, 220, 220, 1);
+    background-color: rgba(20, 20, 120, 1);
+    color: rgba(220, 220, 220, 1);
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
     z-index: 1001;
 
@@ -28,26 +27,26 @@
 }
 
 /*
- * Animating the modal appearance.
+ * Animating the tooltip appearance.
  *
  * We need the "end state" CSS to transition into.
  * Using CSSTransition applies two new class names to an XYZ element in succession:
  * XYZ-appear and XYZ-appear-active.
  */
-.modal-background-appear {
+.tooltip-background-appear {
     /* Note: obviously this might not be great if the background isn't already this color. */
     background-color: rgba(250, 250, 250, 1);
 }
-.modal-background-appear.modal-background-appear-active {
-    background-color: rgba(33, 33, 33, 0.75);
+.tooltip-background-appear.tooltip-background-appear-active {
+    background-color: rgba(133, 133, 33, 0.75);
     transition-duration: 350ms;
     transition-property: background-color;
 }
 
-.modal-dialog-appear {
+.tooltip-appear {
     opacity: 0;
 }
-.modal-dialog-appear.modal-dialog-appear-active {
+.tooltip-appear.tooltip-appear-active {
     transition-duration: 350ms;
     transition-property: opacity;
     opacity: 1;

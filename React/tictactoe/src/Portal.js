@@ -1,15 +1,19 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
-// An abstract Portal. Concrete descendents will render a React Component
+// A Portal to render a specific Component class into a portal,
 // into a specified DOM node.
 //
 // This is basically an abstraction around the React16 createPortal API...
 //
+// @prop {PortalType} - The React Component type to render into the this Portal.
 // @prop {portalRoot} - The root DOM node into which we render this Portal.
 class Portal extends React.Component {
     constructor(props) {
         super(props);
-        let {portalRoot} = props;
+        let { PortalType, portalRoot } = props;
+
+        this.PortalType = PortalType;
 
         // Create an element into which to render this portal
         this.container = document.createElement('div');
@@ -24,6 +28,11 @@ class Portal extends React.Component {
     componentWillUnmount() {
         console.log(`Portal::componentWillUnmount() - removing child from portalRoot`);
         this.portalRoot.removeChild(this.container);
+    }
+
+    render() {
+        console.debug(`Portal::render()`);
+        return ReactDOM.createPortal(<this.PortalType {...this.props} />, this.container);
     }
 
     // ----------------------------------------------------------------------

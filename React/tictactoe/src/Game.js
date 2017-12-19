@@ -1,7 +1,9 @@
 import React from 'react';
 import './Game.css';
 
-import ModalPortal from './ModalPortal';
+import Modal from './Modal';
+import Tooltip from './Tooltip';
+import Portal from './Portal';
 import GameOver from './GameOver';
 import Board from './Board';
 
@@ -45,7 +47,8 @@ class Game extends React.Component {
             }],
             moveNumber: 0,
             xIsNext: true,
-            showGameOver: false
+            showGameOver: false,
+            showTooltip: false
         };
     }
 
@@ -82,6 +85,11 @@ class Game extends React.Component {
         this.setState(this.initialGameState());
     }
 
+    closeTooltip() {
+        console.log(`Game::closeTooltip()`);
+        this.setState(this.showTooltip);
+    }
+
     render() {
         const history = this.state.history;
         const current = history[this.state.moveNumber];
@@ -107,12 +115,11 @@ class Game extends React.Component {
         } else {
             status = `Next player: ${this.state.xIsNext ? 'X' : 'O'}`;
         }
-        let { showGameOver } = this.state;
+        let { showGameOver, showTooltip } = this.state;
         if (winner || draw) {
             showGameOver = true;
         }
 
-        // New style Modal WIP to get animations to work
         return (
             <div className="game">
             <div className="game-board">
@@ -124,19 +131,32 @@ class Game extends React.Component {
             </div>
             <div>
               <button className="show-portal"
-                      onClick={() => this.setState({showGameOver: !showGameOver})}>
-              Test Show Portal
+                onClick={() => this.setState({showGameOver: !showGameOver})}
+              >
+              Test Show Modal
+              </button>
+                <br />
+              <button className="show-tooltip"
+                      onClick={() => this.setState({showTooltip: !showTooltip})}
+              >
+              Test Show Tooltip
               </button>
             </div>
-            <ModalPortal open={showGameOver}
+            <Portal PortalType={Modal} open={showGameOver}
                     portalRoot={document.getElementById('modal-root')}
             >
-              <GameOver header="Game Status Update" closeMsg="Reset Game Portal" onClose={() => this.resetGame()}>
+              <GameOver header="Game Status Update" closeMsg="Reset Game Modal" onClose={() => this.resetGame()}>
                 <span>Game Over!</span><br />
                 <span>{status}</span><br />
-                <button onClick={() => this.resetGame()}>Reset Game Portal Button</button>
+                <button onClick={() => this.resetGame()}>Reset Game Modal Button</button>
               </GameOver>
-            </ModalPortal>
+            </Portal>
+            <Portal PortalType={Tooltip} open={showTooltip}
+                    portalRoot={document.getElementById('root')}
+            >
+              This is a tooltip for the tooltip button!
+              <button onClick={() => this.setState({showTooltip: !showTooltip})}>Reset Tip Modal Button</button>
+            </Portal>
             </div>
         );
     }
