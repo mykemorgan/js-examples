@@ -30,6 +30,35 @@ ol, ul {
   padding: 0;
   text-align: center;
   width: 34px;
+
+}
+
+@media (min-width: 700px) {
+    body {
+	font: 16px "Century Gothic", Futura, sans-serif;
+	margin: 20px;
+    }
+    .square {
+	background: #fbb;
+	font-size: 36px;
+	line-height: 38px;
+	height: 42px;
+	width: 42px;
+    }
+}
+
+@media (max-width: 400px) {
+    body {
+	font: 16px "Century Gothic", Futura, sans-serif;
+	margin: 20px;
+    }
+    .square {
+	background: #fbb;
+	font-size: 18px;
+	line-height: 24px;
+	height: 24px;
+	width: 24px;
+    }
 }
 
 .square:focus {
