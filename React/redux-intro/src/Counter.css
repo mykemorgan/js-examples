@@ -1,0 +1,24 @@
+.Counter {
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  font-family: Hack;
+}
+.counter {
+    font-size: 24px;
+    font-family: Hack;
+    /* font-weight: bold; */
+}
+
+.action {
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #aaa;
+}
+.decrement {
+    color: red;
+}
+.increment {
+    color: green;
+}
