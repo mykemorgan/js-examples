@@ -4,10 +4,6 @@ import './Counter.css';
 
 
 class Counter extends React.Component {
-    state = {
-        count: 0
-    }
-
     increment = () => {
         // connect also passes us the dispatch function
         this.props.dispatch({ type: 'INCREMENT'});
