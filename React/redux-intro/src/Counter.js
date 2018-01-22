@@ -9,11 +9,13 @@ class Counter extends React.Component {
     }
 
     increment = () => {
-        // fill in later to use redux
+        // connect also passes us the dispatch function
+        this.props.dispatch({ type: 'INCREMENT'});
     }
 
     decrement = () => {
-        // fill in later to use redux
+        // connect also passes us the dispatch function
+        this.props.dispatch({ type: 'DECREMENT'});
     }
 
     render() {
