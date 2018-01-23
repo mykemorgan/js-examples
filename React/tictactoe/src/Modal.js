@@ -46,14 +46,24 @@ class Modal extends React.Component {
         console.log(`Modal::render()`);
         return this.props.open ? (
             <div>
-            <CSSTransition in={this.props.open} classNames="modal-background" appear={true} timeout={1000}>
-            <div className="modal-background"/>
-            </CSSTransition>
-            <CSSTransition in={this.props.open} classNames="modal-dialog" appear={true} timeout={1000}>
-                <div role="dialog" className="modal-dialog">
-                    {this.props.children}
-                </div>
-            </CSSTransition>
+                <CSSTransition
+                    in={this.props.open}
+                    classNames="modal-background"
+                    appear={true}
+                    timeout={1000}
+                >
+                    <div className="modal-background" />
+                </CSSTransition>
+                <CSSTransition
+                    in={this.props.open}
+                    classNames="modal-dialog"
+                    appear={true}
+                    timeout={1000}
+                >
+                    <div role="dialog" className="modal-dialog">
+                        {this.props.children}
+                    </div>
+                </CSSTransition>
             </div>
         ) : null;
     }

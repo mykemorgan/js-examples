@@ -18,7 +18,7 @@ function calculateWinner(squares) {
         [1, 4, 7],
         [2, 5, 8],
         [0, 4, 8],
-        [2, 4, 6],
+        [2, 4, 6]
     ];
     for (let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i];
@@ -42,9 +42,11 @@ class Game extends React.Component {
 
     initialGameState() {
         return {
-            history: [ {
-                squares: Array(9).fill(null)
-            }],
+            history: [
+                {
+                    squares: Array(9).fill(null)
+                }
+            ],
             moveNumber: 0,
             xIsNext: true,
             showGameOver: false,
@@ -62,21 +64,21 @@ class Game extends React.Component {
             return;
         }
         squares[i] = this.state.xIsNext ? 'X' : 'O';
-        this.setState(
-            {
-                history: history.concat([{
-                    squares: squares
-                }]),
-                moveNumber: history.length,
-                xIsNext: !this.state.xIsNext
-            }
-        );
+        this.setState({
+            history: history.concat([
+                {
+                    squares
+                }
+            ]),
+            moveNumber: history.length,
+            xIsNext: !this.state.xIsNext
+        });
     }
 
     jumpToMove(move) {
         this.setState({
             moveNumber: move,
-            xIsNext: (move % 2) === 0
+            xIsNext: move % 2 === 0
         });
     }
 
@@ -99,9 +101,9 @@ class Game extends React.Component {
         const moves = history.map((step, move) => {
             const desc = move ? `Go to move ${move}` : `Go to game start`;
             return (
-                    <li key={`move${move}`}>
+                <li key={`move${move}`}>
                     <button onClick={() => this.jumpToMove(move)}>{desc}</button>
-                    </li>
+                </li>
             );
         });
 
@@ -122,41 +124,55 @@ class Game extends React.Component {
 
         return (
             <div className="game">
-            <div className="game-board">
-              <Board squares={current.squares} onClick={(i) => this.handleClick(i)} />
-            </div>
-            <div className="game-info">
-              <div>{status}</div>
-              <ol>{moves}</ol>
-            </div>
-            <div>
-              <button className="show-portal"
-                onClick={() => this.setState({showGameOver: !showGameOver})}
-              >
-              Test Show Modal
-              </button>
-                <br />
-              <button className="show-tooltip"
-                      onClick={() => this.setState({showTooltip: !showTooltip})}
-              >
-              Test Show Tooltip
-              </button>
-            </div>
-            <Portal PortalType={Modal} open={showGameOver}
+                <div className="game-board">
+                    <Board squares={current.squares} onClick={i => this.handleClick(i)} />
+                </div>
+                <div className="game-info">
+                    <div>{status}</div>
+                    <ol>{moves}</ol>
+                </div>
+                <div>
+                    <button
+                        className="show-portal"
+                        onClick={() => this.setState({ showGameOver: !showGameOver })}
+                    >
+                        Test Show Modal
+                    </button>
+                    <br />
+                    <button
+                        className="show-tooltip"
+                        onClick={() => this.setState({ showTooltip: !showTooltip })}
+                    >
+                        Test Show Tooltip
+                    </button>
+                </div>
+                <Portal
+                    PortalType={Modal}
+                    open={showGameOver}
                     portalRoot={document.getElementById('modal-root')}
-            >
-              <GameOver header="Game Status Update" closeMsg="Reset Game Modal" onClose={() => this.resetGame()}>
-                <span>Game Over!</span><br />
-                <span>{status}</span><br />
-                <button onClick={() => this.resetGame()}>Reset Game Modal Button</button>
-              </GameOver>
-            </Portal>
-            <Portal PortalType={Tooltip} open={showTooltip}
+                >
+                    <GameOver
+                        header="Game Status Update"
+                        closeMsg="Reset Game Modal"
+                        onClose={() => this.resetGame()}
+                    >
+                        <span>Game Over!</span>
+                        <br />
+                        <span>{status}</span>
+                        <br />
+                        <button onClick={() => this.resetGame()}>Reset Game Modal Button</button>
+                    </GameOver>
+                </Portal>
+                <Portal
+                    PortalType={Tooltip}
+                    open={showTooltip}
                     portalRoot={document.getElementById('root')}
-            >
-              This is a tooltip for the tooltip button!
-              <button onClick={() => this.setState({showTooltip: !showTooltip})}>Reset Tip Modal Button</button>
-            </Portal>
+                >
+                    This is a tooltip for the tooltip button!
+                    <button onClick={() => this.setState({ showTooltip: !showTooltip })}>
+                        Reset Tip Modal Button
+                    </button>
+                </Portal>
             </div>
         );
     }

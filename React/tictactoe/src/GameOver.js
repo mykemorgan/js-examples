@@ -28,17 +28,13 @@ class GameOver extends React.Component {
         console.log(`GameOver::render()`);
         return (
             <div className="game-over">
-              <header>
-                <span>{this.props.header}</span>
-                <button
-                        onClick={() => this.props.onClose()}
-                        type="button"
-                        aria-label="close"
-                >
-                  {this.props.closeMsg ? this.props.closeMsg : 'CLOSE'}
-                </button>
-              </header>
-              <div className="modal-content">{this.props.children}</div>
+                <header>
+                    <span>{this.props.header}</span>
+                    <button onClick={() => this.props.onClose()} type="button" aria-label="close">
+                        {this.props.closeMsg ? this.props.closeMsg : 'CLOSE'}
+                    </button>
+                </header>
+                <div className="modal-content">{this.props.children}</div>
             </div>
         );
     }

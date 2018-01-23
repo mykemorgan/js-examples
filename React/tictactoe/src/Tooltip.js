@@ -28,14 +28,24 @@ class Tooltip extends React.Component {
         console.log(`Tooltip::render()`);
         return this.props.open ? (
             <div>
-            <CSSTransition in={this.props.open} classNames="tooltip-background" appear={true} timeout={1000}>
-            <div className="tooltip-background"/>
-            </CSSTransition>
-            <CSSTransition in={this.props.open} classNames="tooltip" appear={true} timeout={1000}>
-                <div role="dialog" className="tooltip-dialog">
-                    {this.props.children}
-                </div>
-            </CSSTransition>
+                <CSSTransition
+                    in={this.props.open}
+                    classNames="tooltip-background"
+                    appear={true}
+                    timeout={1000}
+                >
+                    <div className="tooltip-background" />
+                </CSSTransition>
+                <CSSTransition
+                    in={this.props.open}
+                    classNames="tooltip"
+                    appear={true}
+                    timeout={1000}
+                >
+                    <div role="dialog" className="tooltip-dialog">
+                        {this.props.children}
+                    </div>
+                </CSSTransition>
             </div>
         ) : null;
     }
