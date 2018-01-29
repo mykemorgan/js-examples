@@ -7,14 +7,11 @@ Things could be particularly ugly.
 
 ### Directories
 
-#### interviews
-An area for some interview questions. Phone screen so far, maybe in person later as well.
-
 #### basics
 Random basic stuff before it gets too big to put into it's own area.
 
 #### data_structures
-Implement some data structures in Javascript.
+Implement some data structures in Javascript for fun.
 
 #### jquery
 jQuery examples and tutorials.
@@ -25,4 +22,6 @@ React examples and tutorials.
 #### Angular
 Angular examples and tutorials.
 
+#### simpleCC
+Example implementation of an interview question in JS.
 
