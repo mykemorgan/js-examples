@@ -16,6 +16,9 @@ Implement some data structures in Javascript for fun.
 #### jquery
 jQuery examples and tutorials.
 
+#### GraphQL
+GraphQL examples and tutorials.
+
 #### React
 React examples and tutorials.
 
