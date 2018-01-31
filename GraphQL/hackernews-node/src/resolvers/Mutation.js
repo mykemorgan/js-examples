@@ -1,10 +1,19 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { APP_SECRET } = require('../utils')
+const { APP_SECRET, getUserId } = require('../utils')
 
 function post(parent, args, context, info) {
-    const {url, description} = args;
-    return context.db.mutation.createLink({ data: { url, description } }, info);
+    const userId = getUserId(context);
+    const { url, description } = args;
+    return context.db.mutation.createLink(
+        {
+            data: {
+                url,
+                description,
+                postedBy: { connect: { id: userId } }
+            }
+        },
+        info);
 }
 
 async function signup(parent, args, context, info) {
