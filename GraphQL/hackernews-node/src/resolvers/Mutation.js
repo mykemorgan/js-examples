@@ -49,8 +49,30 @@ async function login(parent, args, context, info) {
         user,
     }
 }
+
+async function vote(parent, args, context, info) {
+    const userId = getUserId(context);
+    const { linkId } = args;
+
+    // Have to vote for something that exists.
+    const linkExists = await context.db.exists.Link({ id: linkId });
+    if (!linkExists) {
+        throw new Error(`Link does not exist: ${linkId}`);
+    }
+
+    // Create the vote.
+    return context.db.mutation.createVote({
+        data: {
+            user: { connect: { id: userId } },
+            link: { connect: { id: linkId } }
+        },
+        info,
+    })
+}
+
 module.exports = {
     post,
     signup,
-    login
+    login,
+    vote,
 }
