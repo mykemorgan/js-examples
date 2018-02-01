@@ -60,6 +60,15 @@ async function vote(parent, args, context, info) {
         throw new Error(`Link does not exist: ${linkId}`);
     }
 
+    // No double voting
+    const voteExists = await context.db.exists.Vote({
+        user: { id: userId },
+        link: { id: linkId }
+    });
+    if (voteExists) {
+        throw new Error(`User ${userId} already voted for: ${linkId}`);
+    }
+
     // Create the vote.
     return context.db.mutation.createVote({
         data: {
