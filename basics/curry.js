@@ -25,3 +25,28 @@ console.log(add3(5));
 console.log(add4(5));
 
 
+console.log('------------------');
+
+// Currying arbitrary argument lists into sums...
+function sum(...args) {
+//    console.log('  Called sum(', args, ')');
+    function curried(...args2) {
+//        console.log('  Called curried(', args2, '), returning sum(', args, args2, ')');
+        return sum(...args, ...args2);
+    }
+    curried.value = () => {
+//        console.log('  Calculating value() of args: ', args);
+        return args.reduce((total, curr) => curr + total);
+    };
+    return curried;
+}
+console.log('sum(1,2,3)     ------------------');
+console.log(sum(1,2,3).value());
+console.log('sum(1)(2)(3))  ------------------');
+console.log(sum(1)(2)(3).value());
+console.log('sum(1,2)(3))   ------------------');
+console.log(sum(1,2)(3).value());
+console.log('sum(1,2)(3,4)) ------------------');
+console.log(sum(1,2)(3,4).value());
+
+// Can we get rid of the need for .value()?
